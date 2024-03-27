@@ -24,7 +24,6 @@
   --bodyBackground: #F7F6F2;
   --mainColor: #202020;
   --accentColor: #0C06FE;
-  --pagePadding: 10%;
   --borderStyleStroke: 1px solid var(--mainColor);
 }
 html, body {
@@ -38,21 +37,14 @@ html, body {
   align-items: center;
 }
 
-nav {
-  width: 100%;
-  border-bottom: var(--borderStyleStroke);
-  margin: 0%;
+
+@media screen and (max-width: 800px) {
+  :root {
+    --pagePadding: 7%;
+  }
 }
-#navLinks {
-  display: flex;
-  justify-content: end;
-} #navLinks li {
-  display: inline;
-  list-style-type: none;
-  padding: 0;
-  margin-left: 10px;
-} #navLinks a {
-  text-decoration: none;
-} #navLinks a:hover {
-  text-decoration: underline;
+@media screen and (min-width: 801px) {
+  :root {
+    --pagePadding: 10%;
+  }
 }

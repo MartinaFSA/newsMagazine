@@ -24,47 +24,56 @@
     align-items: center;
 }
 
-#ctn_outstandingArticle {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0px;
-    grid-auto-rows: minmax(100px, auto);
-    padding: 0px var(--pagePadding);
-}
+/*Featured*/
 .outstanding_article {
     padding: 10px 20px;
-} .outstanding_article:nth-of-type(2n + 1) > .description {
+}
+.dateAndPlus {
+    color: #8d8d8de8;
+    margin-top: 15px;
+}
+.tags {
+    text-transform: lowercase;
+} .outstanding_article:not(:nth-of-type(2)) .tags{
+    color: var(--accentColor);
+}
+.plusButton img{
+    padding: 0px;
+    width: 25px;
+} .outstanding_article:nth-of-type(2n + 1) > .ctn_description {
     display: none;
+} .tags, .ctn_description, .dateAndPlus {
+    font-family: WorkSans-Regular;
+} .authors {
+    font-family: WorkSans-Italic;
+    margin-bottom: 20px;
+    margin-top: 10px;
+} .title {
+    font-family: InstrumentSerif-Regular;
+    text-transform: uppercase;
+    line-height: 1em;
+    font-size: 2em;
+    margin-bottom: 0px;
+    margin-top: 0px;
+} .ctn_description {
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 6;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+} .description {
+    margin-top: 0px;
+}
+
+.outstanding_article:nth-of-type(2) {
+    background-color: var(--accentColor);
 } .outstanding_article:nth-of-type(3), .outstanding_article:nth-of-type(4) {
     background-color: var(--mainColor);
-} .outstanding_article:nth-of-type(1) {
-    grid-row: 1;
-    grid-column: 1;
-} .outstanding_article:nth-of-type(2) {
-    background-color: var(--accentColor);
-    grid-row: 1 / 3;
-    grid-column: 2;
-} .outstanding_article:nth-of-type(3) {
-    grid-row: 1;
-    grid-column: 3;
-} .outstanding_article:nth-of-type(4) {
-    grid-row: 2 / 4;
-    grid-column: 1;
-} .outstanding_article:nth-of-type(5) {
-    grid-row: 3;
-    grid-column: 2;
-} .outstanding_article:nth-of-type(6) {
-    grid-row: 2 / 4;
-    grid-column: 3;
-}
- .dateAndPlus p {
-    color: #8d8d8dc2;
-}
-.plusButton {
-    padding: 10px;
-    border: var(--borderStyleStroke);
-    border-radius: 100%;
-    line-height: 0;
+} .outstanding_article:nth-of-type(3) > p:not(.tags), .outstanding_article:nth-of-type(4) > p:not(.tags), .outstanding_article:nth-of-type(2) > p:not(.tags), .outstanding_article:nth-of-type(2) .ctn_description, .outstanding_article:nth-of-type(4) .ctn_description {
+    color: var(--bodyBackground);
+} .outstanding_article:nth-of-type(1), .outstanding_article:nth-of-type(5), .outstanding_article:nth-of-type(6) {
+    background-color: var(--bodyBackground);
 }
 
 @media screen and (max-width: 800px) {
@@ -76,6 +85,13 @@
         padding-left: var(--pagePadding);
         width: 100%;
     }
+    .outstanding_article:nth-of-type(1), .outstanding_article:nth-of-type(5), .outstanding_article:nth-of-type(6) {
+        box-sizing: border-box;
+        border-left: var(--borderStyleStroke);
+        border-bottom: var(--borderStyleStroke);
+        border-right: var(--borderStyleStroke);
+    }
+    
 }
 @media screen and (min-width: 801px) {
     .ctn_subtitle {
@@ -85,5 +101,39 @@
         width: 25%;
     }.ctn_subtitle > div:not(:first-of-type){
         padding-left: 30px;
-    }    
+    }
+    
+    /*Featured*/
+    #ctn_outstandingArticle {
+        margin: 0px var(--pagePadding);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1px;
+        grid-auto-rows: minmax(100px, auto);
+        background-color: var(--mainColor);
+    }
+    .outstanding_article {
+        box-sizing: border-box;
+        outline: var(--borderStyleStroke);
+    }
+    /*grid placement*/
+    .outstanding_article:nth-of-type(1) {
+        grid-row: 1;
+        grid-column: 1;
+    } .outstanding_article:nth-of-type(2) {
+        grid-row: 1 / 3;
+        grid-column: 2;
+    } .outstanding_article:nth-of-type(3) {
+        grid-row: 1;
+        grid-column: 3;
+    } .outstanding_article:nth-of-type(4) {
+        grid-row: 2 / 4;
+        grid-column: 1;
+    } .outstanding_article:nth-of-type(5) {
+        grid-row: 3;
+        grid-column: 2;
+    } .outstanding_article:nth-of-type(6) {
+        grid-row: 2 / 4;
+        grid-column: 3;
+    }
 }

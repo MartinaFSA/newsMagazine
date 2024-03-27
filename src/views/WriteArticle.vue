@@ -48,7 +48,7 @@ export default {
 
             axios({
                 method: 'post',
-                url: 'http://localhost/api/articles.php',
+                url: 'http://newsmagazine-api.000.pe/articles.php',
                 data: formData,
                 config: { headers: {'Content-Type': 'multipart/form-data' }}
             })

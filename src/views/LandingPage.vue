@@ -7,13 +7,13 @@
         </div>
         <div id="ctn_outstandingArticle">
             <div v-for="(article, index) in this.outstandingArticles" :key="index" class="outstanding_article">
-                <div><p>{{article.tags}}</p></div>
-                <p>{{article.title}}</p>
-                <div><p>Por <span>{{article.authors}}</span></p></div>
-                <p class="description">{{ article.summary}}</p>
+                <p class="tags">{{article.tags}}</p>
+                <p class="title">{{article.title}}</p>
+                <p class="authors">Por <span>{{article.authors}}</span></p>
+                <div class="ctn_description"><p class="description">{{ article.summary}}</p></div>
                 <div class="dateAndPlus flexBetween">
                     <p>{{article.date}}</p>
-                    <RouterLink :to="'/article/' + article.id" alt="Ir al artículo" class="plusButton">+</RouterLink>
+                    <RouterLink :to="'/article/' + article.id" alt="Ir al artículo" class="plusButton"><img src="@/assets/plus-icon.svg"></RouterLink>
                 </div>
             </div>
         </div>
