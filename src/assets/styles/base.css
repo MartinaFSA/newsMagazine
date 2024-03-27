@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'InstrumentSerif-Regular';
+  src: url('../fonts/InstrumentSerif-Regular.ttf') format('truetype'),
+    url('../fonts/InstrumentSerif-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'InstrumentSerif-Italic';
+  src: url('../fonts/InstrumentSerif-Italic.ttf') format('truetype'),
+    url('../fonts/InstrumentSerif-Italic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'WorkSans-Regular';
+  src: url('../fonts/WorkSans-Regular.ttf') format('truetype'),
+    url('../fonts/WorkSans-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'WorkSans-Italic';
+  src: url('../fonts/WorkSans-Italic.ttf') format('truetype'),
+    url('../fonts/WorkSans-Italic.woff') format('woff');
+}
+
+:root {
+  --bodyBackground: #F7F6F2;
+  --mainColor: #202020;
+  --accentColor: #0C06FE;
+  --pagePadding: 10%;
+  --borderStyleStroke: 1px solid var(--mainColor);
+}
+html, body {
+  padding: 0%;
+  margin: 0%;
+  background-color: var(--bodyBackground);
+}
+.flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  width: 100%;
+  border-bottom: var(--borderStyleStroke);
+  margin: 0%;
+}
+#navLinks {
+  display: flex;
+  justify-content: end;
+} #navLinks li {
+  display: inline;
+  list-style-type: none;
+  padding: 0;
+  margin-left: 10px;
+} #navLinks a {
+  text-decoration: none;
+} #navLinks a:hover {
+  text-decoration: underline;
+}
