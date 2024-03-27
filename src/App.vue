@@ -5,14 +5,14 @@
   import { getAnalytics } from "firebase/analytics";
 
   const firebaseConfig = {
-    apiKey: "AIzaSyDkf6uGtLZJZpjFhdW7upAgrtRvFye_-H0",
-    authDomain: "newsmagazine-b803d.firebaseapp.com",
-    databaseURL: "https://newsmagazine-b803d-default-rtdb.firebaseio.com",
-    projectId: "newsmagazine-b803d",
-    storageBucket: "newsmagazine-b803d.appspot.com",
-    messagingSenderId: "341014684432",
-    appId: "1:341014684432:web:7720936b67631c13db7b95",
-    measurementId: "G-GC8RY23KWL"
+    apiKey: import.meta.env.VUE_APIKEY,
+    authDomain: import.meta.env.VUE_AUTHDOMAIN,
+    databaseURL: import.meta.env.VUE_databaseURL,
+    projectId: import.meta.env.VUE_PROJECTID,
+    storageBucket: import.meta.env.VUE_STORAGEBUCKET,
+    messagingSenderId: import.meta.env.VUE_MESSAGESENDERID,
+    appId: import.meta.env.VUE_APPID,
+    measurementId: import.meta.env.VUE_measurementId
   };
 
   const app = initializeApp(firebaseConfig);
