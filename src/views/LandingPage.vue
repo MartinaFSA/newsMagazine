@@ -28,26 +28,7 @@
         <div class="ctn_subtitle">
             <div>// Recientes</div>
         </div>
-        <div class="ctn_recent">
-            <div class="categories_name">
-                <div v-for="(category, index) in this.allCategories" :key="index"><p>{{ category.category }}</p></div>
-            </div>
-            <!--Generate a row for each category and add 5 articles in them-->
-            <div class="ctn_categories carousel">
-                <div class="inner" ref="inner" :style="innerStyles" v-for="(categoryRow, index) in recentFiveCategorized.length"  :key="index">
-                    <div v-for="(card) in recentFiveCategorized[index]" :key="card.id" class="category card">
-                        <div class="categoryMobile"><p>{{card.category}}</p></div>
-                        <p>{{ card.title }}</p>
-                        <p>Por <span>{{card.authors}}</span> // Arte <span>{{ card.artist }}</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="carrousel_controls">
-            <button @click="prev"><img src="@/assets/arrow-icon-left.svg" alt="Next article" srcset=""></button>
-            <RouterLink to="/allArticles">Ver más</RouterLink>
-            <button @click="next"><img src="@/assets/arrow-icon-right.svg" alt="Next article" srcset=""></button>
-        </div>
+        <CarouselRecent></CarouselRecent>
     </section>
     <section>
         <div class="ctn_subtitleSecondType">
@@ -80,6 +61,11 @@
                 </div>
             </div>
         </div>
+        <div class="carrousel_controls">
+            <button @click="prev"><img src="@/assets/arrow-icon-left.svg" alt="Next article" srcset=""></button>
+            <p >1 / {{ this.allWriters.length }}</p>
+            <button @click="next"><img src="@/assets/arrow-icon-right.svg" alt="Next article" srcset=""></button>
+        </div>
     </section>
     <section>
         <div class="ctn_subtitleSecondType">
@@ -105,35 +91,22 @@
 
 <script>
 import axios from 'axios';
+import CarouselRecent from '@/components/Carousel_RecentArticles.vue';
 
 export default {
     data() {
         return {
             outstandingArticles: [],
-            recentFiveCategorized: [],
-            allCategories: [],
             allWriters: [],
-            allArtists: [],
-            innerStyles: {},
-            step: '',
-            transitioning: false
+            allArtists: []
         }
+    },
+    components: {
+        CarouselRecent
     },
     async created() {
         await axios.get('http://localhost/api/outstandingArticles.php/all')
             .then(response => (this.outstandingArticles = response.data)
-            )
-            .catch(function (error) {
-                console.log(error);
-            });
-        await axios.get('http://localhost/api/articles.php/recentFiveCategorized')
-            .then(response => divideCategoriesInRows(response.data))
-            .then(response => this.recentFiveCategorized = response)
-            .catch(function (error) {
-                console.log(error);
-            });
-        await axios.get('http://localhost/api/articles.php/allCategories')
-            .then(response => (this.allCategories = response.data)
             )
             .catch(function (error) {
                 console.log(error);
@@ -160,18 +133,6 @@ export default {
                 person.socialMedia = cleanLinks;
             });
         }
-
-        function divideCategoriesInRows(data) {
-            let array = [];
-            for (let i = 0; i < data.length; i += 5) {
-                const chunk = data.slice(i, i + 5);
-                array.push(chunk);
-            }
-            return array;
-        }
-
-        this.setStep();
-        this.resetTranslate();
     },
     methods: {
         showBio(index) {
@@ -181,68 +142,6 @@ export default {
         hideBio(index) {
             let bio = document.getElementById('writerBio_' + index);
             bio.classList.remove('slideDown');
-        },
-
-        setStep () {
-            const innerWidth = this.$refs.inner[0].scrollWidth
-            const totalCards = this.recentFiveCategorized.length
-            this.step = `${innerWidth / totalCards}px`
-        },
-        next () {
-            if (this.transitioning) return;
-            this.transitioning = true;
-            this.moveLeft();
-            this.afterTransition(() => {
-                for (let i = 0; i < this.recentFiveCategorized.length; i++) {
-                    const article = this.recentFiveCategorized[i].shift()
-                    this.recentFiveCategorized[i].push(article);
-                    this.resetTranslate();
-                    this.transitioning = false;
-                }
-            })
-        },
-        prev () {
-            if (this.transitioning) return;
-            this.transitioning = true;
-            this.moveRight();
-            this.afterTransition(() => {
-                for (let i = 0; i < this.recentFiveCategorized.length; i++) {
-                    const article = this.recentFiveCategorized[i].pop()
-                    this.recentFiveCategorized[i].unshift(article)
-                    this.resetTranslate()
-                    this.transitioning = false
-                }
-            })
-
-        },
-        moveLeft () {
-            this.innerStyles = {
-            //add a - to the first translate for a scroll effect 
-            transform: `translateX(${this.step})
-                        translateX(-${this.step})`
-            }
-        },
-        moveRight () {
-            this.innerStyles = {
-            transform: `translateX(${this.step})
-                        translateX(-${this.step})`
-            }
-        },
-        afterTransition (callback) {
-            const listener = () => {
-                callback()
-                for (let i = 0; i < this.recentFiveCategorized.length; i++) {
-                    this.$refs.inner[i].removeEventListener('transitionend', listener)
-                }
-            }
-            for (let i = 0; i < this.recentFiveCategorized.length; i++) {
-                this.$refs.inner[i].addEventListener('transitionend', listener)
-            }
-        },
-        resetTranslate () {
-            this.innerStyles = {
-            transition: 'none',
-            }
         }
     }
 }

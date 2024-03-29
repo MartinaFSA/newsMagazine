@@ -1,33 +1,3 @@
-/*CAROUSEL*/
-.carousel {
-    width: 100%;
-    overflow: hidden;
-} .inner {
-    transition: transform 0.1s; /*how much time should it pass before showing next article*/
-    white-space: nowrap;
-    display: flex;
-    flex-direction: row;
-} .card {
-    width: 600px;
-    display: inline-flex;
-    border-right: var(--borderStyleStroke);
-} .inner:not(:last-of-type) {
-    border-bottom: var(--borderStyleStroke);
-} 
-.carrousel_controls {
-    font-family: WorkSans-Regular;
-    text-transform: uppercase;
-    color: var(--accentColor);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 20px;
-}.carrousel_controls button {
-    background-color: transparent;
-    border: none;
-}
-
 /*WELCOME*/
 #welcome {
     height: 80vh;
@@ -35,7 +5,7 @@
     background-color: var(--secondaryColor);
     width: 100%;
     font-size: 4em;
-} #welcome p{
+} #welcome p {
     padding: 0%;
     margin: 0%;
 }
@@ -47,7 +17,7 @@
     align-items: center;
     justify-content: center;
 }
-.ctn_subtitleSecondType > div{
+.ctn_subtitleSecondType > div {
     height: 50px;
     width: 350px;
     text-align: center;
@@ -81,7 +51,7 @@
 }
 
 /*Featured*/
-.outstanding_article, .categories_name > div, .category {
+.outstanding_article {
     padding: 10px var(--contentPadding);
 }
 .dateAndPlus {
@@ -130,38 +100,6 @@
 } .outstanding_article:nth-of-type(1), .outstanding_article:nth-of-type(5), .outstanding_article:nth-of-type(6) {
     background-color: var(--bodyBackground);
 }
-
-
-/*RECENT*/
-.ctn_recent {
-    display: flex;
-    outline: var(--borderStyleStroke);
-} .categories_name > div {
-    font-family: WorkSans-Italic;
-    text-transform: uppercase;
-} .categories_name p {
-    margin: 0%;
-}
-.ctn_categories {
-    outline: var(--borderStyleStroke);
-} .category {
-    flex-direction: column;
-    justify-content: center;
-    background-color: var(--bodyBackground);
-} .category p {
-    color: var(--mainColor);
-} .category > p:first-of-type {
-    font-family: InstrumentSerif-Regular;
-    font-size: 1.5em;
-    margin: 0%;
-} .category > p:not(:first-of-type) {
-    font-family: WorkSans-Italic;
-    margin: 0%;
-} .category span {
-    font-weight: 500;
-} .categories_name > div, .category {
-    height: 85px;
-} 
 
 /*WRITERS*/
 .ctn_writers {
@@ -222,21 +160,6 @@
         border-left: var(--borderStyleStroke);
         border-bottom: var(--borderStyleStroke);
         border-right: var(--borderStyleStroke);
-    } .category {
-        position: relative;
-    }
-    .categories_name {
-        display: none;
-    } .categoryMobile {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        background-color: var(--secondaryColor);
-    } .categoryMobile p {
-        padding:  2px var(--contentPadding);
-        margin: 0%;
-        color: var(--bodyBackground);
-        font-family: WorkSans-Italic;
     }
     
     .writerProfiles, .writerInfo, .writerBio {
@@ -297,23 +220,6 @@
     } .outstanding_article:nth-of-type(6) {
         grid-row: 2 / 4;
         grid-column: 3;
-    }
-
-    /*RECENT*/
-    .ctn_recent {
-        padding-left: var(--pagePadding);
-    } 
-    .categories_name {
-        width: 600px;
-        border-left: var(--borderStyleStroke);
-    } .categories_name > div {
-        display: flex;
-        align-items: center;
-        border-right: var(--borderStyleStroke);
-    } .categories_name > div:not(:last-of-type) {
-        border-bottom: var(--borderStyleStroke);
-    } .categoryMobile {
-        display: none;
     }
     
     .writerProfiles, .writerInfo, .writerBio {
