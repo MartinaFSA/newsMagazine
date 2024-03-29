@@ -10,6 +10,7 @@ This website is yet to be released! Follow to see the project updates
 
 ### :wrench: Built With
 <b>[VueJS](https://vuejs.org/)</b> - An approachable, performant and versatile JavaScript framework for building web user interfaces.
+
 <b>Custom PHP Rest API</b> which pourpose is to communicate the Front-End with the database and allow the user to Create, Read, Update and Delete (CRUD) registries.
 
 ### Technical knowledge used in this project:

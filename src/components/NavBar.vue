@@ -38,6 +38,7 @@
     text-transform: uppercase;
     position: fixed;
     top: 0;
+    z-index: 10;
     width: 86vw;
     background-color: var(--bodyBackground);
   } button {

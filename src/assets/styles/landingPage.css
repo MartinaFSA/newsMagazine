@@ -101,45 +101,6 @@
     background-color: var(--bodyBackground);
 }
 
-/*WRITERS*/
-.ctn_writers {
-    overflow: scroll;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    margin: 0px;
-    border-left: var(--borderStyleStroke);
-    border-top: var(--borderStyleStroke);
-    border-right: var(--borderStyleStroke);
-} .writerProfileImg {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-left: var(--borderStyleStroke);
-} .writerProfiles, .writerInfo {
-    text-wrap: nowrap;
-    text-align: center;
-} .writerProfiles, .writerInfo {
-    padding: 20px var(--contentPadding);
-} .writerInfo  {
-    border-top: var(--borderStyleStroke);
-    border-bottom: var(--borderStyleStroke);
-} .writerName {
-    color: var(--accentColor);
-    font-family: InstrumentSerif-Regular;
-    font-size: 1.5em;
-} .writerBio {
-    background-color: var(--accentColor);
-    padding: 0px var(--contentPadding);
-    color: var(--bodyBackground);
-    overflow: hidden;
-    height: 0;
-    transition: all .6s ease-in-out;
-} .slideDown {
-    height: 400px;
-}
-
 @media screen and (max-width: 800px) {
     .ctn_subtitleSecondType > div {
         width: 100%;
@@ -160,15 +121,7 @@
         border-left: var(--borderStyleStroke);
         border-bottom: var(--borderStyleStroke);
         border-right: var(--borderStyleStroke);
-    }
-    
-    .writerProfiles, .writerInfo, .writerBio {
-        width: 80vw;
-        max-width: 350px;
-    } .ctn_writers {
-        padding-left: var(--contentPadding);
-    }
-    
+    }    
 }
 @media screen and (min-width: 801px) {
     .ctn_subtitleSecondType > div {
@@ -220,11 +173,5 @@
     } .outstanding_article:nth-of-type(6) {
         grid-row: 2 / 4;
         grid-column: 3;
-    }
-    
-    .writerProfiles, .writerInfo, .writerBio {
-        width: 350px;
-    } .ctn_writers {
-        padding-left: var(--pagePadding);
     }
 }
