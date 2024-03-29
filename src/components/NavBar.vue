@@ -28,12 +28,6 @@
   </header>
 </template>
 
-<script>
-
-export default {
-}
-</script>
-
 <style scoped>
   nav {
     border-bottom: var(--borderStyleStroke);
@@ -42,6 +36,10 @@ export default {
     font-family: WorkSans-Regular;
     font-weight: 400;
     text-transform: uppercase;
+    position: fixed;
+    top: 0;
+    width: 86vw;
+    background-color: var(--bodyBackground);
   } button {
     background-color: transparent;
     border: none;
@@ -79,7 +77,6 @@ export default {
       display: none;
     }
     nav {
-      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;

@@ -3,16 +3,18 @@
     width: 100%;
     overflow: hidden;
 } .inner {
-    transition: transform 0.2s;
+    transition: transform 0.1s; /*how much time should it pass before showing next article*/
     white-space: nowrap;
     display: flex;
     flex-direction: row;
 } .card {
     width: 600px;
     display: inline-flex;
-    border-bottom: var(--borderStyleStroke);
     border-right: var(--borderStyleStroke);
-} .carrousel_controls {
+} .inner:not(:last-of-type) {
+    border-bottom: var(--borderStyleStroke);
+} 
+.carrousel_controls {
     font-family: WorkSans-Regular;
     text-transform: uppercase;
     color: var(--accentColor);
@@ -20,6 +22,7 @@
     flex-direction: row;
     justify-content: flex-end;
     width: 100%;
+    margin-top: 20px;
 }.carrousel_controls button {
     background-color: transparent;
     border: none;
@@ -28,6 +31,7 @@
 /*WELCOME*/
 #welcome {
     height: 80vh;
+    margin-top: calc(4vh + 20px); /*leave a margin equal to nav height*/
     background-color: var(--secondaryColor);
     width: 100%;
     font-size: 4em;
@@ -161,7 +165,6 @@
 
 /*WRITERS*/
 .ctn_writers {
-    width: 100%;
     overflow: scroll;
     display: flex;
     flex-direction: row;
@@ -306,8 +309,9 @@
     } .categories_name > div {
         display: flex;
         align-items: center;
-        border-bottom: var(--borderStyleStroke);
         border-right: var(--borderStyleStroke);
+    } .categories_name > div:not(:last-of-type) {
+        border-bottom: var(--borderStyleStroke);
     } .categoryMobile {
         display: none;
     }

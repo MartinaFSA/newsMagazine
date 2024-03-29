@@ -45,7 +45,7 @@
         </div>
         <div class="carrousel_controls">
             <button @click="prev"><img src="@/assets/arrow-icon-left.svg" alt="Next article" srcset=""></button>
-            <p>Ver más</p>
+            <RouterLink to="/allArticles">Ver más</RouterLink>
             <button @click="next"><img src="@/assets/arrow-icon-right.svg" alt="Next article" srcset=""></button>
         </div>
     </section>
@@ -217,7 +217,8 @@ export default {
         },
         moveLeft () {
             this.innerStyles = {
-            transform: `translateX(-${this.step})
+            //add a - to the first translate for a scroll effect 
+            transform: `translateX(${this.step})
                         translateX(-${this.step})`
             }
         },
