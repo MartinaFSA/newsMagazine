@@ -1,5 +1,6 @@
 <script setup>
   import NavBar from './components/NavBar.vue'
+  import Footer from './components/Footer.vue'
 /*
   import { initializeApp } from "firebase/app";
   import { getAnalytics } from "firebase/analytics";
@@ -24,6 +25,7 @@
   <main>
       <RouterView />
   </main>
+  <Footer/>
 </template>
 
 <style>

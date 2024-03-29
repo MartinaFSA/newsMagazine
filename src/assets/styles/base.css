@@ -24,7 +24,9 @@
   --bodyBackground: #F7F6F2;
   --mainColor: #202020;
   --accentColor: #0C06FE;
+  --secondaryColor: #948DF3;
   --borderStyleStroke: 1px solid var(--mainColor);
+  --contentPadding: 20px;
 }
 html, body {
   padding: 0%;
@@ -36,7 +38,6 @@ html, body {
   justify-content: space-between;
   align-items: center;
 }
-
 
 @media screen and (max-width: 800px) {
   :root {

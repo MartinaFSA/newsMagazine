@@ -175,9 +175,19 @@ export default {
       display: inline;
       list-style-type: none;
       padding: 0;
-      margin-left: 5vw;
     } #logo img {
-      height: 4vh;
+      height: 3vh;
+    }
+  }
+  
+  @media screen and (min-width: 801px) and (max-width: 1050px) {
+    #navLinks_desktop li {
+      margin-left: 2vw;
+    }
+  }
+  @media screen and (min-width: 1050px) {
+    #navLinks_desktop li {
+      margin-left: 5vw;
     }
   }
 </style>

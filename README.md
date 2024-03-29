@@ -12,6 +12,14 @@ This website is yet to be released! Follow to see the project updates
 <b>[VueJS](https://vuejs.org/)</b> - An approachable, performant and versatile JavaScript framework for building web user interfaces.
 <b>Custom PHP Rest API</b> which pourpose is to communicate the Front-End with the database and allow the user to Create, Read, Update and Delete (CRUD) registries.
 
+### Technical knowledge used in this project:
+- Custom Rest API built from scratch with PHP
+- Database Arquitecture
+- Production Deployment
+- Custom Carousels based on [@luveqz tutorial](https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0)
+- Front-End layout development
+- Responsiveness
+
 
 ##  :warning: THIS PROJECT IS A WORK IN PROGRESS :warning:
 Currently working on the in initial phase

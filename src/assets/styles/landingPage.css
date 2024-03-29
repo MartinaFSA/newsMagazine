@@ -1,16 +1,69 @@
-.ctn_subtitle {
+/*CAROUSEL*/
+.carousel {
+    width: 100%;
+    overflow: hidden;
+} .inner {
+    transition: transform 0.2s;
+    white-space: nowrap;
     display: flex;
-    font-weight: 400;
-    height: 50px;
-    margin-top: 50px;
-}.ctn_subtitle > div:first-of-type{
+    flex-direction: row;
+} .card {
+    width: 600px;
+    display: inline-flex;
+    border-bottom: var(--borderStyleStroke);
+    border-right: var(--borderStyleStroke);
+} .carrousel_controls {
     font-family: WorkSans-Regular;
     text-transform: uppercase;
+    color: var(--accentColor);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}.carrousel_controls button {
+    background-color: transparent;
+    border: none;
+}
+
+/*WELCOME*/
+#welcome {
+    height: 80vh;
+    background-color: var(--secondaryColor);
+    width: 100%;
+    font-size: 4em;
+} #welcome p{
+    padding: 0%;
+    margin: 0%;
+}
+
+/*Subtitles*/
+.ctn_subtitleSecondType {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ctn_subtitleSecondType > div{
+    height: 50px;
+    width: 350px;
+    text-align: center;
+    color: var(--accentColor);
+    border-left: var(--borderStyleStroke);
+    border-top: var(--borderStyleStroke);
+    border-right: var(--borderStyleStroke);
+}
+
+.ctn_subtitle, .ctn_subtitleSecondType {
+    display: flex;
+    font-weight: 500;
+    margin-top: 100px;
+    font-family: WorkSans-Regular;
+    text-transform: uppercase;
+}.ctn_subtitle > div:first-of-type{
     background-color: var(--accentColor);
     color: var(--bodyBackground);
     padding-left: var(--pagePadding);
     width: 25%;
-    height: 100%;
     display: flex;
     align-items: center;
 }.ctn_subtitle > div:not(:first-of-type){
@@ -18,15 +71,14 @@
     color: var(--mainColor);
     padding: 0px 30px;
     border: var(--borderStyleStroke);
-    height: 100%;
     box-sizing: border-box;
     display: flex;
     align-items: center;
 }
 
 /*Featured*/
-.outstanding_article {
-    padding: 10px 20px;
+.outstanding_article, .categories_name > div, .category {
+    padding: 10px var(--contentPadding);
 }
 .dateAndPlus {
     color: #8d8d8de8;
@@ -34,7 +86,7 @@
 }
 .tags {
     text-transform: lowercase;
-} .outstanding_article:not(:nth-of-type(2)) .tags{
+} .outstanding_article:not(:nth-of-type(2)) .tags {
     color: var(--accentColor);
 }
 .plusButton img{
@@ -50,7 +102,6 @@
     margin-top: 10px;
 } .title {
     font-family: InstrumentSerif-Regular;
-    text-transform: uppercase;
     line-height: 1em;
     font-size: 2em;
     margin-bottom: 0px;
@@ -76,10 +127,88 @@
     background-color: var(--bodyBackground);
 }
 
+
+/*RECENT*/
+.ctn_recent {
+    display: flex;
+    outline: var(--borderStyleStroke);
+} .categories_name > div {
+    font-family: WorkSans-Italic;
+    text-transform: uppercase;
+} .categories_name p {
+    margin: 0%;
+}
+.ctn_categories {
+    outline: var(--borderStyleStroke);
+} .category {
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--bodyBackground);
+} .category p {
+    color: var(--mainColor);
+} .category > p:first-of-type {
+    font-family: InstrumentSerif-Regular;
+    font-size: 1.5em;
+    margin: 0%;
+} .category > p:not(:first-of-type) {
+    font-family: WorkSans-Italic;
+    margin: 0%;
+} .category span {
+    font-weight: 500;
+} .categories_name > div, .category {
+    height: 85px;
+} 
+
+/*WRITERS*/
+.ctn_writers {
+    width: 100%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0px;
+    border-left: var(--borderStyleStroke);
+    border-top: var(--borderStyleStroke);
+    border-right: var(--borderStyleStroke);
+} .writerProfileImg {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: var(--borderStyleStroke);
+} .writerProfiles, .writerInfo {
+    text-wrap: nowrap;
+    text-align: center;
+} .writerProfiles, .writerInfo {
+    padding: 20px var(--contentPadding);
+} .writerInfo  {
+    border-top: var(--borderStyleStroke);
+    border-bottom: var(--borderStyleStroke);
+} .writerName {
+    color: var(--accentColor);
+    font-family: InstrumentSerif-Regular;
+    font-size: 1.5em;
+} .writerBio {
+    background-color: var(--accentColor);
+    padding: 0px var(--contentPadding);
+    color: var(--bodyBackground);
+    overflow: hidden;
+    height: 0;
+    transition: all .6s ease-in-out;
+} .slideDown {
+    height: 400px;
+}
+
 @media screen and (max-width: 800px) {
+    .ctn_subtitleSecondType > div {
+        width: 100%;
+    }
     .ctn_subtitle {
         flex-direction: column;
-    }.ctn_subtitle > div:first-of-type{
+    } .ctn_subtitle > div {
+        height: 50px;
+    }
+    .ctn_subtitle > div:first-of-type{
         width: 50%;
     }.ctn_subtitle > div:not(:first-of-type){
         padding-left: var(--pagePadding);
@@ -90,10 +219,40 @@
         border-left: var(--borderStyleStroke);
         border-bottom: var(--borderStyleStroke);
         border-right: var(--borderStyleStroke);
+    } .category {
+        position: relative;
+    }
+    .categories_name {
+        display: none;
+    } .categoryMobile {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: var(--secondaryColor);
+    } .categoryMobile p {
+        padding:  2px var(--contentPadding);
+        margin: 0%;
+        color: var(--bodyBackground);
+        font-family: WorkSans-Italic;
+    }
+    
+    .writerProfiles, .writerInfo, .writerBio {
+        width: 80vw;
+        max-width: 350px;
+    } .ctn_writers {
+        padding-left: var(--contentPadding);
     }
     
 }
 @media screen and (min-width: 801px) {
+    .ctn_subtitleSecondType > div {
+        width: 350px;
+    }
+    .ctn_subtitle {
+        height: 50px;
+    } .ctn_subtitle > div {
+        height: 100%;
+    }
     .ctn_subtitle {
         flex-direction: row;
         align-items: center;
@@ -135,5 +294,27 @@
     } .outstanding_article:nth-of-type(6) {
         grid-row: 2 / 4;
         grid-column: 3;
+    }
+
+    /*RECENT*/
+    .ctn_recent {
+        padding-left: var(--pagePadding);
+    } 
+    .categories_name {
+        width: 600px;
+        border-left: var(--borderStyleStroke);
+    } .categories_name > div {
+        display: flex;
+        align-items: center;
+        border-bottom: var(--borderStyleStroke);
+        border-right: var(--borderStyleStroke);
+    } .categoryMobile {
+        display: none;
+    }
+    
+    .writerProfiles, .writerInfo, .writerBio {
+        width: 350px;
+    } .ctn_writers {
+        padding-left: var(--pagePadding);
     }
 }
