@@ -1,11 +1,5 @@
 <template>
   <main>
-    <section id="welcome">
-        <div>
-            <p>NEWS</p>
-            <p>laboratorio de no ficción creativa</p>
-        </div>
-    </section>
     <section>
         <div class="ctn_subtitle">
             <div>// Destacados</div>
@@ -18,7 +12,7 @@
                 <p class="authors">Por <span>{{article.authors}}</span></p>
                 <div class="ctn_description"><p class="description">{{ article.summary}}</p></div>
                 <div class="dateAndPlus flexBetween">
-                    <p>{{article.date}}</p>
+                    <p class="smallGrayText">{{article.date}}</p>
                     <RouterLink :to="'/article/' + article.id" alt="Ir al artículo" class="plusButton"><img src="@/assets/plus-icon.svg"></RouterLink>
                 </div>
             </div>
@@ -44,16 +38,20 @@
                 <p> // Artistas</p>
             </div>
         </div>
-        <div class="ctn_artistas">
-            <div v-for="(artist, index) in this.allArtists" :key="index">
-                <a>{{ artist.name }} / </a>
-                <img src="" alt="">
+        <div id="ctn_artistas">
+            <div id="artistsNamesArt">
+                <div>
+                    <button v-for="(artist, index) in this.allArtists" :key="index" @click="this.selectArtist(artist)" :id="'artist_' + artist.id" :class="{'selectedArtist' : index === 0}">{{ artist.name }} / </button>
+                </div>
+                <img :src="'../src/assets/images/artist/' + this.selectedArtist.id + '.jpg'" :alt="'Ilustración de ' + this.selectedArtist.name">
             </div>
-            <div>
-                <p>artist.name</p>
-                <p>artist.location</p>
-                <p>artist.bio</p>
-                <p>Artículos ilustrados</p>
+            <div id="artistInfo">
+                <div>
+                    <p class="mediumBlueText">{{this.selectedArtist.name}}</p>
+                    <p class="smallGrayText">{{this.selectedArtist.location}}</p>
+                    <p>{{this.selectedArtist.bio}}</p>
+                </div>
+                    <RouterLink :to="'/filteredArticles/artist?' + this.selectedArtist.id" alt="Ver todos los artículos ilustrados por el artista">Artículos ilustrados</RouterLink>
             </div>
         </div>
     </section>
@@ -69,7 +67,8 @@ export default {
     data() {
         return {
             outstandingArticles: [],
-            allArtists: []
+            allArtists: [],
+            selectedArtist: []
         }
     },
     components: {
@@ -84,14 +83,15 @@ export default {
                 console.log(error);
             });
         await axios.get('http://localhost/api/general.php/allArtists')
-            .then(response => (this.allArtists = response.data))
+            .then(response => {
+                this.allArtists = response.data;
+                this.selectedArtist = response.data[0];
+                getSocials(this.allArtists)
+            })
             .catch(function (error) {
                 console.log(error);
             });
         
-        
-        getSocials(this.allArtists);
-
         function getSocials(jsonData) {
             jsonData.forEach(person => {
                 let cleanLinks = person.socialMedia.split('"');
@@ -101,6 +101,11 @@ export default {
         }
     },
     methods: {
+        selectArtist(artist) {
+            this.selectedArtist = artist;
+            document.getElementsByClassName('selectedArtist')[0].classList.remove('selectedArtist');
+            document.getElementById('artist_'+artist.id).classList.add('selectedArtist');
+        }
     }
 }
 </script>

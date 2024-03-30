@@ -6,11 +6,11 @@
         <!--Generate a row for each category and add 5 articles in them-->
         <div class="ctn_categories carousel">
             <div class="inner" ref="inner" :style="innerStyles" v-for="(categoryRow, index) in recentFiveCategorized.length"  :key="index">
-                <div v-for="(card) in recentFiveCategorized[index]" :key="card.id" class="category card">
+                <RouterLink :to="'/article/' + card.id" alt="Ir al artículo" v-for="(card) in recentFiveCategorized[index]" :key="card.id" class="category card">
                     <div class="categoryMobile"><p>{{card.category}}</p></div>
                     <p>{{ card.title }}</p>
                     <p>Por <span>{{card.authors}}</span> // Arte <span>{{ card.artist }}</span></p>
-                </div>
+                </RouterLink>
             </div>
         </div>
     </div>
@@ -140,22 +140,11 @@ export default {
     border-right: var(--borderStyleStroke);
 } .inner:not(:last-of-type) {
     border-bottom: var(--borderStyleStroke);
-} 
+} .category {
+    text-decoration: none;
+}
 .categories_name > div, .category {
     padding: 10px var(--contentPadding);
-}
-.carrousel_controls {
-    font-family: WorkSans-Regular;
-    text-transform: uppercase;
-    color: var(--accentColor);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 100%;
-    margin-top: 20px;
-}.carrousel_controls button {
-    background-color: transparent;
-    border: none;
 }
 
 /*RECENT*/

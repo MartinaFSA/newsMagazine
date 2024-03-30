@@ -38,6 +38,29 @@ html, body {
   justify-content: space-between;
   align-items: center;
 }
+.mediumBlueText {
+  color: var(--accentColor);
+  font-family: InstrumentSerif-Regular;
+  font-size: 1.5em;
+}
+.smallGrayText {
+  color: #8d8d8de8;
+  font-family: WorkSans-Italic;
+}
+
+.carrousel_controls {
+  font-family: WorkSans-Regular;
+  text-transform: uppercase;
+  color: var(--accentColor);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+}.carrousel_controls button {
+  background-color: transparent;
+  border: none;
+}
 
 @media screen and (max-width: 800px) {
   :root {
