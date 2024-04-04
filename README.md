@@ -14,7 +14,7 @@ This website is yet to be released! Follow to see the project updates
 
 ### Technical knowledge used in this project:
 - Custom Rest API built from scratch with PHP
-- Database Arquitecture
+- Web and Database Architecture
 - Production Deployment
 - Custom Carousels based on [@luveqz tutorial](https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0)
 - Front-End layout development
@@ -34,6 +34,6 @@ REQUIREMENTS: VueJS, Xampp control panel, MySQL
 
  Run the Front-End side of the app ``npm run dev``
 
- Copy the api folder into htdocs inside your xampp folder and initialize  Apache in the control panel
+ Copy the api folder into htdocs inside your xampp folder and initialize Apache in the control panel
 
- Create a database using the queries located in the scripts folder (first createTables, then insertDummyData)
+ Create a database using the queries located in the scripts folder (first createTables, then insertDummyData, lastly create the Stored Procedures)
