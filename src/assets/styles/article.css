@@ -1,0 +1,165 @@
+/*article header*/
+h1 {
+    color: var(--mainColor);
+    font-family: InstrumentSerif-Regular;
+    font-weight: 400;
+    text-transform: uppercase;
+} .title_authorArtist, #articleDate {
+    width: 100%;
+} .title_authorArtist > p, #articleDate p {
+    font-family: WorkSans-Italic;
+    width: max-content;
+    margin: 0;
+} .title_authorArtist span, #articleDate p {
+    color: var(--accentColor);
+    font-weight: 500;
+} #coverImg {
+    width: 100%;
+    border: var(--borderStyleStroke);
+} #articleDate p {
+    outline: var(--borderStyleStroke);
+} #articleDate {
+    display: flex;
+    justify-content: center;
+}
+
+/*article content*/
+#contents, #share, #goToTop a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} #contents, #goToTop {
+    padding: 50px var(--pagePadding);
+}
+#summary, #content_body:deep(p), #share {
+    font-size: 1.1em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: var(--mainColor);
+}
+
+/*content body styles*/
+#content_body:deep(blockquote)/*long quotation*/ {
+    border: var(--borderStyleStroke);
+    border-left: 15px solid var(--accentColor);
+    color: var(--accentColor);
+    font-family: InstrumentSerif-Italic;
+    font-size: 1.5em;
+    padding: 20px var(--contentPadding);
+    margin: 0;
+} #content_body:deep(figcaption) /*pie de imagen*/{
+    font-size: 0.8em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: grey;
+    max-width: 780px;
+}
+
+/*share*/
+#share {
+    border: var(--borderStyleStroke);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 50px;
+} #share > div {
+    border-left: var(--borderStyleStroke);
+    border-right: var(--borderStyleStroke);
+    max-width: 780px;
+    padding: 20px 0px;
+    width: 80%;
+} #share p:last-of-type {
+    margin-top: 5px;
+} #share p:first-of-type {
+    margin: 0px 0px 5px;
+} #share a {
+    padding: 10px;
+} #share a:not(:first-of-type) {
+    margin-left: 35px;
+} #share a,  #share a img, #goToTop img {
+    width: 30px;
+} #share button {
+    background-color: transparent;
+    text-decoration: underline;
+    border: none;
+    margin-top: 15px;
+} #share button, #goToTop a {
+    color: var(--accentColor);
+    font-size: 1rem;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 450px) {
+    h1 {
+        font-size: 2em;
+    }
+} @media screen and (min-width: 451px) and (max-width: 800px) {
+    h1 {
+        font-size: 3em;
+    }
+}
+@media screen and (max-width: 800px) {
+    /*article header*/
+    h1 {
+        padding: 5px var(--contentPadding);
+    }.title_authorArtist {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    } .title_authorArtist > p,  #articleDate p {
+        padding: 5px var(--contentPadding);
+    } .title_authorArtist > p:first-of-type {
+        border: var(--borderStyleStroke);
+    } .title_authorArtist > p:last-of-type {
+        outline: var(--borderStyleStroke);
+    } #separator {
+        display: none;
+    } #coverImg img {
+        width: 100%;
+    }
+
+    #summary, #content_body:deep(p), #share {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 801px) {
+    /*article header*/
+    #ctn_article {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 7vh 0px;
+    }
+    h1 {
+        text-align: center;
+        font-size: 4em;
+        width: 80%;
+    } .title_authorArtist {
+        font-family: WorkSans-Italic;
+        width: max-content;
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+    } .title_authorArtist p {
+        border-top: var(--borderStyleStroke);
+        padding: 20px 0px 20px 40px;
+        display: inline-block;
+    } #articleDate p {
+        padding: 20px 40px;
+    } .title_authorArtist p:last-of-type {
+        padding-right: var(--pagePadding);
+    } .title_authorArtist p:first-of-type {
+        border-left: var(--borderStyleStroke);
+    } #coverImg {
+        display: flex;
+        justify-content: center;
+    } #coverImg img {
+        width: 100%;
+        max-width: 800px;
+        border-left: var(--borderStyleStroke);
+        border-right: var(--borderStyleStroke);
+    }
+    #summary, #content_body:deep(p) {
+        max-width: 780px;
+    }
+}

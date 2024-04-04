@@ -23,7 +23,7 @@
 <template>
   <NavBar/>
   <main>
-      <RouterView />
+      <RouterView :key="$route.fullPath"/>
   </main>
   <Footer/>
 </template>

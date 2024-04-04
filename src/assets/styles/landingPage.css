@@ -1,43 +1,3 @@
-/*Subtitles*/
-.ctn_subtitleSecondType {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.ctn_subtitleSecondType > div {
-    height: 50px;
-    width: 350px;
-    text-align: center;
-    color: var(--accentColor);
-    border-left: var(--borderStyleStroke);
-    border-top: var(--borderStyleStroke);
-    border-right: var(--borderStyleStroke);
-}
-
-.ctn_subtitle, .ctn_subtitleSecondType {
-    display: flex;
-    font-weight: 500;
-    margin-top: 100px;
-    font-family: WorkSans-Regular;
-    text-transform: uppercase;
-}.ctn_subtitle > div:first-of-type{
-    background-color: var(--accentColor);
-    color: var(--bodyBackground);
-    padding-left: var(--pagePadding);
-    width: 25%;
-    display: flex;
-    align-items: center;
-}.ctn_subtitle > div:not(:first-of-type){
-    font-family: WorkSans-Italic;
-    color: var(--mainColor);
-    padding: 0px 30px;
-    border: var(--borderStyleStroke);
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-}
-
 /*Featured*/
 .outstanding_article {
     padding: 10px var(--contentPadding);
@@ -127,19 +87,6 @@
 
 
 @media screen and (max-width: 800px) {
-    .ctn_subtitleSecondType > div {
-        width: 100%;
-    } .ctn_subtitle {
-        flex-direction: column;
-    } .ctn_subtitle > div {
-        height: 50px;
-    } .ctn_subtitle > div:first-of-type{
-        width: 50%;
-    } .ctn_subtitle > div:not(:first-of-type){
-        padding-left: var(--pagePadding);
-        width: 100%;
-    }
-
     .outstanding_article:nth-of-type(1), .outstanding_article:nth-of-type(5), .outstanding_article:nth-of-type(6) {
         box-sizing: border-box;
         border-left: var(--borderStyleStroke);
@@ -152,22 +99,7 @@
         padding:  0px var(--contentPadding);
     }
 }
-@media screen and (min-width: 801px) {
-    .ctn_subtitleSecondType > div {
-        width: 350px;
-    } .ctn_subtitle {
-        height: 50px;
-    } .ctn_subtitle > div {
-        height: 100%;
-    } .ctn_subtitle {
-        flex-direction: row;
-        align-items: center;
-    } .ctn_subtitle > div:first-of-type{
-        width: 25%;
-    } .ctn_subtitle > div:not(:first-of-type){
-        padding-left: 30px;
-    }
-    
+@media screen and (min-width: 801px) {    
     /*Featured*/
     #ctn_outstandingArticle {
         margin: 0px var(--pagePadding);

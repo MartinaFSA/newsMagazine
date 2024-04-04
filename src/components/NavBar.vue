@@ -101,6 +101,7 @@
     } 
     #hamburger input:checked ~ ul {
       transform: none;
+      border-left: var(--borderStyleStroke);
     } #logo img, #hamburger img {
       height: 4vh;
     } #hamburger {

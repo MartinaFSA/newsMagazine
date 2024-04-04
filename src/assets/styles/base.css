@@ -33,6 +33,13 @@ html, body {
   margin: 0%;
   background-color: var(--bodyBackground);
 }
+body {
+  margin-top: calc(4vh + 30px);
+} main {
+  overflow-x: hidden;
+}
+
+/*general styling*/
 .flexBetween {
   display: flex;
   justify-content: space-between;
@@ -47,7 +54,14 @@ html, body {
   color: #8d8d8de8;
   font-family: WorkSans-Italic;
 }
+.defaultH1Style {
+  color: var(--mainColor);
+  font-family: InstrumentSerif-Regular;
+  font-weight: 400;
+  text-transform: uppercase;
+}
 
+/*Carousel*/
 .carrousel_controls {
   font-family: WorkSans-Regular;
   text-transform: uppercase;
@@ -62,13 +76,88 @@ html, body {
   border: none;
 }
 
+/*Subtitles*/
+.ctn_subtitle, .ctn_subtitleSecondType {
+  display: flex;
+  font-weight: 500;
+  margin-top: 100px;
+  font-family: WorkSans-Regular;
+  text-transform: uppercase;
+}.ctn_subtitle > div:first-of-type{
+  background-color: var(--accentColor);
+  color: var(--bodyBackground);
+  padding-left: var(--pagePadding);
+  width: 25%;
+  display: flex;
+  align-items: center;
+}.ctn_subtitle > div:not(:first-of-type){
+  font-family: WorkSans-Italic;
+  color: var(--mainColor);
+  padding: 0px 30px;
+  border: var(--borderStyleStroke);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.ctn_subtitleSecondType {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ctn_subtitleSecondType > div {
+  height: 50px;
+  width: 350px;
+  text-align: center;
+  color: var(--accentColor);
+  border-left: var(--borderStyleStroke);
+  border-top: var(--borderStyleStroke);
+  border-right: var(--borderStyleStroke);
+}
+
+@media screen and (max-width: 450px) {
+  .defaultH1Style {
+    font-size: 2em;
+  }
+} @media screen and (min-width: 451px) and (max-width: 800px) {
+  .defaultH1Style {
+    font-size: 3em;
+  }
+}
 @media screen and (max-width: 800px) {
   :root {
     --pagePadding: 7%;
+  }
+  .ctn_subtitleSecondType > div {
+      width: 100%;
+  } .ctn_subtitle {
+      flex-direction: column;
+  } .ctn_subtitle > div {
+      height: 50px;
+  } .ctn_subtitle > div:first-of-type{
+      width: 50%;
+  } .ctn_subtitle > div:not(:first-of-type){
+      padding-left: var(--pagePadding);
+      width: 100%;
   }
 }
 @media screen and (min-width: 801px) {
   :root {
     --pagePadding: 10%;
+  }
+  .ctn_subtitleSecondType > div {
+      width: 350px;
+  } .ctn_subtitle {
+      height: 50px;
+  } .ctn_subtitle > div {
+      height: 100%;
+  } .ctn_subtitle {
+      flex-direction: row;
+      align-items: center;
+  } .ctn_subtitle > div:first-of-type{
+      width: 25%;
+  } .ctn_subtitle > div:not(:first-of-type){
+      padding-left: 30px;
   }
 }

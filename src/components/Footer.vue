@@ -11,6 +11,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+footer {
+  background-color: var(--mainColor);
+  color: var(--bodyBackground);
+}
 
 </style>
