@@ -11,19 +11,19 @@ This website is yet to be released! Follow to see the project updates
 ### :wrench: Built With
 <b>[VueJS](https://vuejs.org/)</b> - An approachable, performant and versatile JavaScript framework for building web user interfaces.
 <br>
-<b>Custom PHP Rest API</b> which pourpose is to communicate the Front-End with the database and allow the user to Create, Read, Update and Delete (CRUD) registries.
+<b>Custom PHP Rest API</b> which purpose is to communicate the Front-End with the database and allow the user to Create, Read, Update and Delete (CRUD) registries.
 
 ### Technical knowledge used in this project:
 - Custom Rest API built from scratch with PHP
 - Web and Database Architecture
-- Production Deployment
+- Production Deployment (Firebase and Aiven)
 - Custom Carousels based on [@luveqz tutorial](https://dev.to/luvejo/how-to-build-a-carousel-from-scratch-using-vue-js-4ki0)
-- Front-End layout development
-- Responsiveness
+- Implement UI design and expand it to create new layouts
+- Full responsiveness and adaptability
 
 
 ##  :warning: THIS PROJECT IS A WORK IN PROGRESS :warning:
-Currently working on the in initial phase
+Currently working on the Minimun Viable Product phase
 
 ### :computer: Set up
 REQUIREMENTS: VueJS, Xampp control panel, MySQL
@@ -38,3 +38,5 @@ REQUIREMENTS: VueJS, Xampp control panel, MySQL
  Copy the api folder into htdocs inside your xampp folder and initialize Apache in the control panel
 
  Create a database using the queries located in the scripts folder (first createTables, then insertDummyData, lastly create the Stored Procedures)
+
+ Stablish the connection between your database and API by updating the credentials.
