@@ -1,0 +1,44 @@
+/*Developer section*/
+#developerMediaSection {
+    text-align: center;
+    padding: 50px 10px;
+    border-top: 1px solid var(--bodyBackground);
+} #developerMediaSection p:first-of-type {
+    margin-top: 0;
+    font-family: InstrumentSerif-Regular;
+    font-size: 2em;
+    font-weight: 400;
+} #developerMediaSection section:first-of-type p {
+    padding: 20px 0px;
+}
+#developerMediaSection .socialLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#developerMediaSection .socialLinks > div:not(:last-of-type){
+    margin-right: 20px;
+} #developerMediaSection .socialLinks > div:hover {
+    animation-direction:alternate;
+    transform: translateY(-5px);
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+} #developerMediaSection .socialLinks > div {        
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+  
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}

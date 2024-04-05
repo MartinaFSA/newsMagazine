@@ -38,22 +38,7 @@
                 <p> // Artistas</p>
             </div>
         </div>
-        <div id="ctn_artistas">
-            <div id="artistsNamesArt">
-                <div>
-                    <button v-for="(artist, index) in this.allArtists" :key="index" @click="this.selectArtist(artist)" :id="'artist_' + artist.id" :class="{'selectedArtist' : index === 0}">{{ artist.name }} / </button>
-                </div>
-                <img :src="'../src/assets/images/artist/' + this.selectedArtist.id + '.jpg'" :alt="'Ilustración de ' + this.selectedArtist.name">
-            </div>
-            <div id="artistInfo">
-                <div>
-                    <p class="mediumBlueText">{{this.selectedArtist.name}}</p>
-                    <p class="smallGrayText">{{this.selectedArtist.location}}</p>
-                    <p>{{this.selectedArtist.bio}}</p>
-                </div>
-                    <RouterLink :to="'/filteredArticles/artist?' + this.selectedArtist.id" alt="Ver todos los artículos ilustrados por el artista">Artículos ilustrados</RouterLink>
-            </div>
-        </div>
+        <Artists></Artists>
     </section>
   </main>
 </template>
@@ -62,18 +47,18 @@
 import axios from 'axios';
 import CarouselRecent from '@/components/Carousel_RecentArticles.vue';
 import CarouselWriters from '@/components/Carousel_Writers.vue';
+import Artists from '@/components/Artists.vue';
 
 export default {
     data() {
         return {
-            outstandingArticles: [],
-            allArtists: [],
-            selectedArtist: []
+            outstandingArticles: []
         }
     },
     components: {
         CarouselRecent,
-        CarouselWriters
+        CarouselWriters,
+        Artists
     },
     async created() {
         await axios.get('http://localhost/api/outstandingArticles.php/all')
@@ -82,35 +67,10 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
-        await axios.get('http://localhost/api/general.php/allArtists')
-            .then(response => {
-                this.allArtists = response.data;
-                this.selectedArtist = response.data[0];
-                getSocials(this.allArtists)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        
-        function getSocials(jsonData) {
-            jsonData.forEach(person => {
-                let cleanLinks = person.socialMedia.split('"');
-                cleanLinks = cleanLinks.filter(name => name.includes('www.'))
-                person.socialMedia = cleanLinks;
-            });
-        }
-    },
-    methods: {
-        selectArtist(artist) {
-            this.selectedArtist = artist;
-            document.getElementsByClassName('selectedArtist')[0].classList.remove('selectedArtist');
-            document.getElementById('artist_'+artist.id).classList.add('selectedArtist');
-        }
     }
 }
 </script>
 
 <style scoped>
-@import '@/assets/styles/landingPage.css';
-
+    @import '@/assets/styles/landingPage.css';
 </style>

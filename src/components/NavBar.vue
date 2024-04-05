@@ -6,9 +6,10 @@
         </div>
         <div id="navLinks_desktop">
             <ul>
-                <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
-                <li><RouterLink to="/collaborator">Colaboradores</RouterLink></li>
-                <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
+              <li><RouterLink to="/profile">Perfil</RouterLink></li>
+              <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
+              <li><RouterLink to="/allCollaborators">Colaboradores</RouterLink></li>
+              <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
             </ul>
         </div>
         <div id="hamburger">
@@ -19,9 +20,10 @@
             <span></span>
           </div>
           <ul id="navLinks_mobile">
-              <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
-              <li><RouterLink to="/collaborator">Colaboradores</RouterLink></li>
-              <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
+            <li><RouterLink to="/profile">Perfil</RouterLink></li>
+            <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
+            <li><RouterLink to="/allCollaborators">Colaboradores</RouterLink></li>
+            <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
           </ul>
         </div>
     </nav>

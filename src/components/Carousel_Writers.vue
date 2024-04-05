@@ -1,11 +1,10 @@
 <template>
-  
     <div class="ctn_carousel"> <!--Carousel-->
         <div class="inner ctn_writers" ref="inner" :style="innerStyles"><!--inner-->
             <div v-for="(writer, index) in this.allWriters" :key="index" class="writerProfileCard" @mouseover="showBio(index)" @mouseleave="hideBio(index)"> <!--card-->
                 <div class="writerProfiles">
                     <div>
-                        <img :src="'../src/assets/images/writer/' + writer.id + '.jpg'" :alt="'Foto de ' + writer.name">
+                        <img :src="'../src/assets/images/profile/' + writer.id + '.jpg'" :alt="'Foto de ' + writer.name">
                         <p>{{writer.profession}}</p>
                         <p class="smallGrayText">{{writer.location}}</p>
                     </div>
@@ -43,16 +42,6 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
-        
-        getSocials(this.allWriters);
-
-        function getSocials(jsonData) {
-            jsonData.forEach(person => {
-                let cleanLinks = person.socialMedia.split('"');
-                cleanLinks = cleanLinks.filter(name => name.includes('www.'))
-                person.socialMedia = cleanLinks;
-            });
-        }
         this.setStep();
         this.resetTranslate();
     },
