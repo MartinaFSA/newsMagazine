@@ -2,7 +2,7 @@
 For local development: Set up the PHP API files in C:\xampp\htdocs\api. Initialize the connection with XAMPP. The API stablishes a connection to a remote MySQL hosted in (https://console.aiven.io/)[Aiven]-->
 
 ## newsMagazine
-Online news portal with capacity for a robust amount of articles. Common users are able to read an unlimited amount of essay and news uploaded by the organization's writers. Collaborators can access and edit their public profiles and create their pieces from inside the webpage.
+Online news portal with capacity for a robust amount of articles. Common users are able to read an unlimited amount of essays and news uploaded by the organization's writers. Collaborators can access and edit their public profiles and create their pieces from inside the webpage.
 
 </br>
 This website is yet to be released! Follow to see the project updates
