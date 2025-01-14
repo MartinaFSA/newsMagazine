@@ -6,7 +6,7 @@
         </div>
         <div id="navLinks_desktop">
             <ul>
-              <li><RouterLink to="/profile">Perfil</RouterLink></li>
+              <li v-if="this.isLoggedIn"><RouterLink to="/profile">Perfil</RouterLink></li>
               <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
               <li><RouterLink to="/allCollaborators">Colaboradores</RouterLink></li>
               <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
@@ -20,15 +20,24 @@
             <span></span>
           </div>
           <ul id="navLinks_mobile">
-            <li><RouterLink to="/profile">Perfil</RouterLink></li>
+            <li v-if="this.isLoggedIn"><RouterLink to="/profile">Perfil</RouterLink></li>
             <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
             <li><RouterLink to="/allCollaborators">Colaboradores</RouterLink></li>
-            <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
+            <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>            
           </ul>
         </div>
     </nav>
   </header>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  }
+}
+</script>
 
 <style scoped>
   nav {

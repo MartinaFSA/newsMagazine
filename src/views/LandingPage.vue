@@ -61,7 +61,8 @@ export default {
         Artists
     },
     async created() {
-        await axios.get('http://localhost/api/outstandingArticles.php/all')
+        let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
+        await axios.get(apiBaseUrl + 'outstandingArticles.php/all')
             .then(response => (this.outstandingArticles = response.data)
             )
             .catch(function (error) {

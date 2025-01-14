@@ -68,8 +68,9 @@ export default {
     ArticlePreview
   },
   async created() {
+    let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
     let articleId = window.location.pathname.split("/").pop();
-    await axios.get('http://localhost/api/articles.php/byId/' + articleId)
+    await axios.get(apiBaseUrl + 'articles.php/byId/' + articleId)
         .then(response => (this.article = response.data[0])
         )
         .catch(function (error) {

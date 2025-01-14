@@ -38,8 +38,9 @@ export default {
     }
   },
   created() {
+    let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
     let writerId = window.location.pathname.split("/").pop();
-    axios.get('http://localhost/api/general.php/writer/' + writerId)
+    axios.get(apiBaseUrl + 'general.php/writer/' + writerId)
         .then(response => {getSocials(response.data[0]); (this.writer = response.data[0]);}
         )
         .catch(function (error) {

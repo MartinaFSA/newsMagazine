@@ -37,7 +37,8 @@ export default {
         }
     },
     async created() {
-        await axios.get('http://localhost/api/general.php/allWriters')
+        let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
+        await axios.get(apiBaseUrl + 'general.php/allWriters')
             .then(response => (this.allWriters = response.data))
             .catch(function (error) {
                 console.log(error);

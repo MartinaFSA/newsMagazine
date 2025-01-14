@@ -26,7 +26,8 @@ export default {
         }
     },
     async created() {
-        await axios.get('http://localhost/api/general.php/allArtists')
+        let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
+        await axios.get(apiBaseUrl + 'general.php/allArtists')
             .then(response => {
                 this.allArtists = response.data;
                 this.selectedArtist = response.data[0];

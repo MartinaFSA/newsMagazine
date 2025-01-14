@@ -1,8 +1,47 @@
 <template>
   <footer>
-    <section>
-      <div>logos y redes</div>
-      <div>info textual</div>
+    <section class="flexRow" id="newsFooter">
+        <div id="newsFooter_credits">
+            <div class="flexRow">
+                <div>
+                    <p class="footer_pHeader">Dirección general:</p>
+                    <p>Cristian Alarcón</p>
+                </div>
+                <div>
+                    <p class="footer_pHeader">Direccion académica:</p>
+                    <p>Cristina Rivera Garza</p>
+                </div>
+                <div>
+                    <p class="footer_pHeader">Coordinación:</p>
+                    <p>Matías Máximo</p>
+                </div>
+            </div>
+            <div class="flexRow">
+                <div>
+                    <p class="footer_pHeader">Dirección de arte y diseño:</p>
+                    <p>Jael Diaz Villa</p>
+                </div>
+                <div>
+                    <p class="footer_pHeader">Comunicación y redes sociales:</p>
+                    <p>Emilia Holstein</p>
+                </div>
+                <div>
+                    <p class="footer_pHeader">Responsable Financiera:</p>
+                    <p>Micaela Echagüe</p>
+                </div>
+            </div>
+            <div>
+                <p class="footer_pHeader">Asistentes del doctorado de escritura creativa en español de la universidad de houston:</p>
+                <p>Saúl Hernández Vargas, Alaíde Ventura, José Peña Loyola, Leonardo Gonzáles y Erika Said.</p>
+            </div>
+        </div>
+        <div>
+            <div>
+                <img src="@/assets/icons/Anfibialogo.svg" alt="">
+                <img src="@/assets/icons/UNSAMlogo.svg" alt="">
+                <img src="@/assets/icons/CRONOSlogo.svg" alt="">
+            </div>
+        </div>
     </section>
     <section id="developerMediaSection">
         <p>Gracias por tu visita!</p>
@@ -62,10 +101,4 @@ export default {
 
 <style scoped>
 @import '@/assets/styles/footer.css';
-
-footer {
-  background-color: var(--mainColor);
-  color: var(--bodyBackground);
-}
-
 </style>

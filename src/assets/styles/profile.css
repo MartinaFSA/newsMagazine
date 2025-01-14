@@ -1,0 +1,116 @@
+form {
+    padding: 20px var(--pagePadding);
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+label, input, select, textarea {
+    font-size: 1.1em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: var(--mainColor);
+}
+input, select, textarea {
+    background-color: var(--bodyBackground);
+    border: var(--borderStyleStroke);
+    padding: 5px 10px;
+}
+textarea {
+    resize: none;
+}
+input[type=button] {
+    color: var(--bodyBackground);
+    background-color: var(--accentColor);
+    padding: 2.5px var(--pagePadding);
+}
+form div {
+    margin-bottom: 20px;
+}
+
+/*WARNING POP UP*/
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px var(--pagePadding);
+    background-color: rgba(15, 15, 15, 0.75);
+}
+.overlay_content {
+    position: relative;
+    background-color: var(--bodyBackground);
+    padding: 70px var(--contentPadding);
+    margin-top: calc(4vh + 30px);
+    width: 100%;
+    text-align: center;
+}
+.overlay_content p {
+    font-size: 1em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: var(--mainColor);
+} .overlay_content .question {
+    font-size: 1.7em;
+    font-family: InstrumentSerif-Regular;
+    margin: 0px 0px 50px;
+}
+.overlay_content button {
+    font-size: 1.1em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: var(--mainColor);
+    border: var(--borderStyleStroke);
+    padding: 5px 10px;
+}
+.overlay_content button:not(:first-of-type) {
+    margin-left: 20px;
+}
+.cta {
+    color: var(--bodyBackground);
+    background-color: var(--accentColor);
+} .characterCount {
+    font-size: 0.8em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: var(--mainColor);
+    margin: 0;
+}
+
+#savePopUp {
+    transition: opacity 500ms;
+    display: none;
+    opacity: 0;
+}
+
+
+@media screen and (max-width: 800px) {
+    /*Write Article Form*/
+    #title input, #body textarea, #imageDescription textarea, #coverImage input, #tags input, #summary textarea {
+        width: calc(100% - 20px);
+    } #imageArtist select, #type select, #category select {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 801px) {
+    /*Write Article Form*/
+    #title input, #body textarea, #imageDescription textarea, #coverImage input, #tags input, #summary textarea {
+        width: calc(100% - 20px);
+    } .form-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+    } #imageArtist select, #type select, #category select {
+        width: 100%;
+    } #coverImage, #type, #category{
+        margin-bottom: 10px;
+    } .form-group > div, #summary {
+        display: inline-block;
+        width: calc(50% - 20px);
+    }
+}

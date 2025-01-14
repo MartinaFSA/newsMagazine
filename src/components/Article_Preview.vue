@@ -27,15 +27,16 @@ export default {
     }
   },
   async created() {
+    let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
     if (this.filterProp === 'all') {
-      await axios.get('http://localhost/api/articles.php/allArticles')
+      await axios.get(apiBaseUrl + 'articles.php/allArticles')
         .then(response => (this.articles = response.data)
         )
         .catch(function (error) {
             console.log(error);
         });
     } else {
-      await axios.get('http://localhost/api/articles.php/byCategory/' + this.filterProp)
+      await axios.get(apiBaseUrl + 'articles.php/byCategory/' + this.filterProp)
         .then(response => (this.articles = response.data)
         )
         .catch(function (error) {

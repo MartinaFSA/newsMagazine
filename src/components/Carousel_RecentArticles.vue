@@ -33,13 +33,14 @@ export default {
         }
     },
     async created() {
-        await axios.get('http://localhost/api/articles.php/recentFiveCategorized')
+        let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
+        await axios.get(apiBaseUrl + 'articles.php/recentFiveCategorized')
             .then(response => divideCategoriesInRows(response.data))
             .then(response => this.recentFiveCategorized = response)
             .catch(function (error) {
                 console.log(error);
             });
-        await axios.get('http://localhost/api/articles.php/allCategories')
+        await axios.get(apiBaseUrl + 'articles.php/allCategories')
             .then(response => (this.allCategories = response.data)
             )
             .catch(function (error) {

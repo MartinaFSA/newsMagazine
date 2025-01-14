@@ -1,0 +1,107 @@
+*[contenteditable="true"] {
+    display: inline-block;
+    overflow-y: scroll;
+}
+#text-input {
+    width: calc(100% - 40px);
+    font-family: WorkSans-Regular;
+}
+.ctn_formatBtns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.ctn_formatBtns button, .ctn_formatBtns select, input[type="color"]  {
+    background-color: var(--bodyBackground);
+    border: var(--borderStyleStroke);
+    color: var(--mainColor);
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} .ctn_formatBtns select {
+    padding: 0px;
+    margin: 0%;
+}
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0;
+} .input-wrapper label{
+    margin: 0;
+}
+input[type="color"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 15px;
+    box-shadow: 0 0 0 2px var(--bodyBackground), 0 0 0 3px var(--mainColor);
+}
+input[type="color"]::-moz-color-swatch {
+    border-radius: 15px;
+    box-shadow: 0 0 0 2px var(--bodyBackground), 0 0 0 3px var(--mainColor);
+}
+#text-input {
+    border: 1px solid var(--bodyBackground);
+    padding: 20px;
+    border: var(--borderStyleStroke);
+}
+.active {
+    background-color: var(--bodyBackground);
+}
+
+/*Preset Styles*/
+#text-input blockquote {
+    border: var(--borderStyleStroke);
+    border-left: 15px solid var(--accentColor);
+    color: var(--accentColor);
+    font-family: InstrumentSerif-Italic;
+    font-size: 1.5em;
+    padding: 20px var(--contentPadding);
+    margin: 0;
+} #text-input figcaption {
+    font-size: 0.8em;
+    font-family: WorkSans-Regular;
+    font-weight: 400;
+    color: grey;
+    max-width: 780px;
+}
+
+@media screen and (max-width: 800px) {
+    #text-input {
+        height: 80vh;
+    }
+    .ctn_formatBtns {
+        gap: 3px;
+    }
+    .ctn_formatBtns button, .ctn_formatBtns select, input[type="color"]  {
+        height: 30px;
+    }
+    .ctn_formatBtns select, .ctn_formatBtns option, .input-wrapper label {
+        font-size: 1em;
+    }
+    input[type="color"] {
+        width: 20px;
+        padding: 0% 3px;
+    }
+}
+@media screen and (min-width: 801px) {
+    #text-input {
+        height: 50vh;
+    }
+    .ctn_formatBtns {
+        gap: 10px;
+    }
+    .ctn_formatBtns button, .ctn_formatBtns select  {
+        height: 40px;
+    }
+    input[type="color"] {
+        width: 40px;
+    }
+}
