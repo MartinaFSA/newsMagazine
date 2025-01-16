@@ -1,55 +1,59 @@
 <template>
-  <section v-if="this.articles[0]" id="ctn_articlesPreview">
-    <RouterLink v-for="(n, index) in this.defineAmountValue()" :key="index" :to="'/article/' + this.articles[index].id" class="article_Preview" alt="Ir al artículo">
-        <img :src="'../src/assets/images/article/' + this.articles[index].id + '/cover.jpg'" :alt="this.articles[index].coverImg">
+  <section v-if="articles[0]" id="ctn_articlesPreview">
+    <RouterLink v-for="(n, index) in defineAmountValue()" :key="index" :to="'/article/' + articles[index].id" class="article_Preview" alt="Ir al artículo">
+        <img :src="'../src/assets/images/article/' + articles[index].id + '/cover.jpg'" :alt="articles[index].coverImg">
         <div>
-          <p class="tags">{{this.articles[index].tags}}</p>
-          <p class="title">{{this.articles[index].title}}</p>
+          <p class="tags">{{articles[index].tags}}</p>
+          <p class="title">{{articles[index].title}}</p>
         </div>
     </RouterLink>
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    amountProp: {
-      type: Number,
-    },
-    filterProp: {
-      type: String,
-      default: "all"
-    }
+<script setup lang="ts">
+import axios from 'axios';
+import type { IArticle } from '@/data/models';
+import { onBeforeMount, ref } from 'vue';
+
+import { dbUrl } from '@/assets/common'
+const apiBaseUrl = dbUrl();
+
+const articles = ref<IArticle[]>()
+
+const props = defineProps({
+  amountProp: {
+    type: Number,
+    required: false,
   },
-  data() {
-    return {
-      articles: []
-    }
-  },
-  async created() {
-    let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
-    if (this.filterProp === 'all') {
-      await axios.get(apiBaseUrl + 'articles.php/allArticles')
-        .then(response => (this.articles = response.data)
+  filterProp: {
+    type: String,
+    required: false,
+    default: 'all'
+  }
+});
+
+function defineAmountValue () {
+  return props.amountProp ? props.amountProp : articles.value.length; //If amountProp is empty show all articles by default 
+}
+onBeforeMount(async() => {
+    if (props.filterProp === 'all') {
+      await axios.get(apiBaseUrl + 'articles_active')
+        .then(response => 
+          (articles.value = response.data)
         )
         .catch(function (error) {
             console.log(error);
         });
     } else {
-      await axios.get(apiBaseUrl + 'articles.php/byCategory/' + this.filterProp)
-        .then(response => (this.articles = response.data)
+      await axios.get(apiBaseUrl + 'articlesByCategory-' + props.filterProp)
+        .then(response => 
+          (articles.value = response.data)
         )
         .catch(function (error) {
             console.log(error);
         });
     }
-  },
-  methods: {
-    defineAmountValue () {
-      return this.amountProp ? this.amountProp : this.articles.length; //If amountProp is empty show all articles by default 
-    }
-  }
-}
+})
 </script>
 
 <style scoped>

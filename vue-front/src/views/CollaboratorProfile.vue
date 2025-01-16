@@ -1,59 +1,63 @@
 <template>
-  <section>
-      <div class="ctn_subtitle">
-          <div>// Destacados</div>
-          <div id="collaboratorName">{{ this.writer.name }}</div>
-      </div>
-      <div class="ctn_writers">
-        <div class="writerProfileCard">
-          <div class="writerProfiles">
-              <div>
-                  <img :src="'../src/assets/images/profile/' + this.writer.id + '.jpg'" :alt="'Foto de ' + this.writer.name">
-                  <p>{{this.writer.profession}}</p>
-                  <p class="smallGrayText">{{this.writer.location}}</p>
-              </div>
+  <main>
+    <section>
+        <div class="ctn_subtitle">
+            <div>// Destacados</div>
+            <div id="collaboratorName">{{ writer.name }}</div>
+        </div>
+        <div class="ctn_writers">
+          <div class="writerProfileCard">
+            <div class="writerProfiles">
+                <div>
+                    <img :src="'../src/assets/images/profile/' + writer.id + '.jpg'" :alt="'Foto de ' + writer.name">
+                    <p>{{writer.profession}}</p>
+                    <p class="smallGrayText">{{writer.location}}</p>
+                </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="ctn_writers">
-        <div class="writerBio" :id="'writerBio_' + index">
-          <p>{{ this.writer.bio }}</p>
-          <div>
-            <p v-for="(social) in this.writer.socialMedia" :key="social">{{social}}</p>
+        <div class="ctn_writers">
+          <div class="writerBio" :id="'writerBio_' + writer.id">
+            <p>{{ writer.bio }}</p>
+            <div>
+              <p v-for="(social) in writer.socialMedia" :key="social">{{social}}</p>
+            </div>
           </div>
         </div>
-      </div>
-  </section>
-  <section>
-    <h1 class="defaultH1Style">Artículos en los que participó</h1>
-
-  </section>
+    </section>
+    <section>
+      <h1 class="defaultH1Style">Artículos en los que participó</h1>
+    </section>
+  </main>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      writer: []
-    }
-  },
-  created() {
-    let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
-    let writerId = window.location.pathname.split("/").pop();
-    axios.get(apiBaseUrl + 'general.php/writer/' + writerId)
-        .then(response => {getSocials(response.data[0]); (this.writer = response.data[0]);}
-        )
-        .catch(function (error) {
-            console.log(error);
-        });
+<script setup lang="ts">
+  import axios from 'axios';
+  import type { IWriter } from '@/data/models';
+  import { onBeforeMount, ref } from 'vue';
 
-    function getSocials(writer) {
-      let cleanLinks = writer.socialMedia.split('"');
-      cleanLinks = cleanLinks.filter(name => name.includes('www.'))
-      return writer.socialMedia = cleanLinks;
-    }
+  import { dbUrl } from '@/assets/common'
+  const apiBaseUrl = dbUrl();
+
+  const writer = ref<IWriter>()
+
+  onBeforeMount(async() => {
+    const writerId = window.location.pathname.split("/").pop();
+    await axios.get(apiBaseUrl + 'getWriter-' + writerId)
+      .then(response => {
+        getSocials(response.data[0]);
+        writer.value = response.data[0];
+      }
+    )
+    .catch(function (error) {
+      console.log(error);
+    });
+  })
+  function getSocials(writer: any) {
+    let cleanLinks = writer.socialMedia.split('"');
+    cleanLinks = cleanLinks.filter(name => name.includes('www.'))
+    return writer.socialMedia = cleanLinks;
   }
-}
 </script>
 
 <style scoped>
@@ -80,7 +84,7 @@ export default {
   outline: var(--borderStyleStroke);
   padding: 0px var(--pagePadding);
 } .writerProfiles {
-  text-wrap: nowrap;
+  white-space: nowrap;
   text-align: center;
   padding: 20px var(--contentPadding);
 } .writerProfiles div > p:first-of-type{
@@ -102,7 +106,7 @@ export default {
   font-family: InstrumentSerif-Regular;
   font-size: 1.7em;
 } .writerBio {
-  text-wrap: wrap;
+  white-space: wrap;
   background-color: var(--accentColor);
   padding: 0px var(--contentPadding);
   border-left: var(--borderStyleStroke);

@@ -8,10 +8,10 @@ const app = express();
 
 // Setup MySQL connection
 const db = mysql.createConnection({
-  host: 'sql.freedb.tech',  // Database host (e.g., localhost)
-  user: 'freedb_adminNews',       // Database username
-  password: 'U&*tx5YT4&98FyY',       // Database password
-  database: 'freedb_newsPortal_db' // Your database name
+  host: '127.0.0.1',
+  user: 'root',
+  password: '546FED#fsdf',
+  database: 'articles_active'
 });
 
 // Connect to MySQL
@@ -42,12 +42,21 @@ app.get('/data/:tableName', (req, res) => {
   const { tableName } = req.params;
   
   // Validate table name to avoid SQL injection
-  const allowedTables = ['articles_active', 'outstandingArticles', 'drafts', 'articles_archive', 'userRoles', 'user', 'allCategories']; // Define the allowed tables for security
+  const allowedTables = ['articles_active', 'outstanding_articles', 'drafts', 'articles_archive', 'userRoles', 'user', 'allCategories']; // Define the allowed tables for security
   if (!allowedTables.includes(tableName)) {
     return res.status(400).json({ error: 'Invalid table name' });
   }
   if(tableName === 'allCategories') {
     db.query(`SELECT category FROM articles_active GROUP BY category`, (err, results) => {
+      if (err) {
+        console.error('Error fetching data from table:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      res.json(results);
+    });
+  } else if (tableName === 'getArticle-') {
+    const id = tableName.split("-").pop();
+    db.query(`SELECT * FROM articles_active WHERE id = ??`, [id], (err, results) => {
       if (err) {
         console.error('Error fetching data from table:', err);
         return res.status(500).json({ error: 'Database error' });
@@ -66,8 +75,18 @@ app.get('/data/:tableName', (req, res) => {
   }
 });
 
+// Route to fetch data from a table based on the table name
+app.post('/data/:tableName', (req, res) => {
+  const { tableName } = req.params;
+  
+  // Validate table name to avoid SQL injection
+  const allowedTables = ['articles_active', 'outstanding_articles', 'drafts']; // 
+  console.log(`Tried to post in ${tableName}.`);
+  
+  // $sql = "INSERT INTO articles_active ??`, [tableName], (title, type, tags, summary, body, authors, date, coverImg, artist, route, isOutstanding) VALUES ($title, $type, $tags, $summary, $body, $authors, $date, $coverImg, $artist, $route, $isOutstanding)"; 
+});
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

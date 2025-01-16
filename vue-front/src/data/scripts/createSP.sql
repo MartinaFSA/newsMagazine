@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER="avnadmin"@"%" PROCEDURE "CopyOutstandingArticles"(IN articleIDparam INT)
+CREATE DEFINER="avnadmin"@"%" PROCEDURE "Copyoutstanding_articles"(IN articleIDparam INT)
 BEGIN
 -- Declare variables to hold values from "articles" table
     DECLARE articleId INT;
@@ -18,7 +18,7 @@ BEGIN
     
 -- Declare a cursor for iterating through "articles" table
     DECLARE articleCursor CURSOR FOR
-        SELECT * FROM `freedb_newsPortal_db`.articles_active WHERE isOutstanding = 1 AND id = articleIDparam;
+        SELECT * FROM `newsMagazine`.articles_active WHERE isOutstanding = 1 AND id = articleIDparam;
 
     DROP TEMPORARY TABLE IF EXISTS articleToCopy;
 	CREATE TEMPORARY TABLE IF NOT EXISTS articleToCopy  (
@@ -39,18 +39,18 @@ BEGIN
     OPEN articleCursor;
     
 -- If there are 6 or more outstanding articles, delete the one with the earliest date
-    SELECT COUNT(*) INTO outstandingCount FROM `freedb_newsPortal_db`.outstandingArticles;
+    SELECT COUNT(*) INTO outstandingCount FROM `newsMagazine`.outstanding_articles;
 	IF outstandingCount >= 6
-		THEN DELETE FROM `freedb_newsPortal_db`.outstandingArticles ORDER BY date ASC LIMIT 1;
+		THEN DELETE FROM `newsMagazine`.outstanding_articles ORDER BY date ASC LIMIT 1;
 	END IF;
 	FETCH articleCursor INTO articleId, articleTitle, articleType, articleCategory, articleTags, articleSummary,
 	articleBody, articleAuthors, articleDate, articleCoverImg, articleArtist, isOutstandingValue;
         
--- Insert the row into "outstandingArticles" table
+-- Insert the row into "outstanding_articles" table
 	INSERT INTO articleToCopy VALUES (articleId, articleTitle, articleType, articleCategory, articleTags, articleSummary, articleBody, articleAuthors, articleDate, articleCoverImg, articleArtist, isOutstandingValue);
-	INSERT INTO `freedb_newsPortal_db`.outstandingArticles SELECT * FROM articleToCopy;
+	INSERT INTO `newsMagazine`.outstanding_articles SELECT * FROM articleToCopy;
 
     CLOSE articleCursor;
 END$$
 DELIMITER ;
-SELECT * FROM freedb_newsPortal_db.articles_active;
+SELECT * FROM newsMagazine.articles_active;

@@ -1,25 +1,27 @@
 <template>
-  <h1 class="defaultH1Style">Todos los artículos</h1>
-  <section>
-    <div id="ctn_filter">
-      <label for="category">Filtrar por categoría:</label>
-      <select name="category" @change="selectedCategoryFilter=$event.target.value; forceRerender()">
-        <option value="" selected>Todas</option>
-        <option  v-for="(category, index) in allCategories" :key="index" :value="category.category">{{ category.category }}</option>
-      </select>
-    </div>
-  </section>
-  <section :key="componentKey">
-    <ArticlePreview v-if="selectedCategoryFilter === ''" filterProp="all"></ArticlePreview>
-    <ArticlePreview v-else :filterProp="selectedCategoryFilter"></ArticlePreview>
-  </section>
+  <main>
+    <h1 class="defaultH1Style">Todos los artículos</h1>
+    <section>
+      <div id="ctn_filter">
+        <label for="category">Filtrar por categoría:</label>
+        <select name="category" @change="selectedCategoryFilter=$event.target.value; forceRerender()">
+          <option value="" selected>Todas</option>
+          <option  v-for="(category, index) in allCategories" :key="index" :value="category.category">{{ category.category }}</option>
+        </select>
+      </div>
+    </section>
+    <section :key="componentKey">
+      <ArticlePreview v-if="selectedCategoryFilter === ''" filterProp="all"></ArticlePreview>
+      <ArticlePreview v-else :filterProp="selectedCategoryFilter"></ArticlePreview>
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">
   import ArticlePreview from '@/components/Article_Preview.vue';
   import { onBeforeMount, ref } from 'vue';
 
-  import { dbUrl } from '@/assets/composables/utils'
+  import { dbUrl } from '@/assets/common'
   import axios from 'axios';
   const apiBaseUrl = dbUrl();
 
@@ -28,28 +30,8 @@
   const componentKey = ref(0)
 
   onBeforeMount(async() => {
-
-    //TEST FOR NODEJS API
-    axios({
-      method: 'get',
-      url: 'http://localhost:3000',
-      responseType: 'stream'
-    })
-    .then((response) => {
-      console.log(response.data)
-      //articles = response.data
-      }
-    )
-    .catch((error)  => {
-      console.log(error)
-      //articles = response.data
-      }
-    )
-    //FINISH TEST
-
-
     await axios.get(apiBaseUrl + 'allCategories')
-      .then(response => (allCategories = response.data)
+      .then(response => (allCategories.value = response.data)
     )
     .catch(function (error) {
       console.log(error);

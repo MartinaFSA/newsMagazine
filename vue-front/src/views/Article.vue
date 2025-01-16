@@ -2,25 +2,25 @@
   <article>
     <section id="article_header">
       <div class="ctn_subtitle">
-          <div>// {{this.article.type}}</div>
-          <div>{{ this.article.tags  }}</div>
+          <div>// {{article.type}}</div>
+          <div>{{ article.tags  }}</div>
       </div>
-      <div id="ctn_article"><h1>{{this.article.title}}</h1></div>
+      <div id="ctn_article"><h1>{{article.title}}</h1></div>
       <div class="title_authorArtist">
-        <p>Por <span>{{ this.article.authors }}</span></p>
+        <p>Por <span>{{ article.authors }}</span></p>
         <p id="separator">//</p>
-        <p>Arte <span>{{ this.article.artist }}</span></p>
+        <p>Arte <span>{{ article.artist }}</span></p>
       </div>
       <div id="coverImg">
-        <img :src="'../src/assets/images/article/' + this.article.id + '/cover.jpg'" :alt="this.article.coverImg">
+        <img :src="'../src/assets/images/article/' + article.id + '/cover.jpg'" :alt="article.coverImg">
       </div>
       <div id="articleDate">
-        <p>{{ this.article.date }}</p>
+        <p>{{ article.date }}</p>
       </div>
     </section>
     <section id="contents">
       <summary id="summary">
-        <p>{{ this.article.summary }}</p>
+        <p>{{ article.summary }}</p>
       </summary>
       <div id="content_body"></div>
       <div id="goToTop">
@@ -43,49 +43,45 @@
     </section>
     <section>
         <div class="ctn_subtitleSecondType">
-            <div>
-                <p> // Contenido relacionado</p>
-            </div>
+          <div>
+            <p> // Contenido relacionado</p>
+          </div>
         </div>
-        <div v-if="this.article.category">
-          <ArticlePreview :amountProp="4" :filterProp="this.article.category"></ArticlePreview>
+        <div v-if="article.category">
+          <ArticlePreview :amountProp="4" :filterProp="article.category"></ArticlePreview>
         </div>
     </section>
   </article>
 </template>
 
-<script>
-import axios from 'axios';
-import ArticlePreview from '@/components/Article_Preview.vue';
+<script setup lang="ts">
+  import axios from 'axios';
+  import ArticlePreview from '@/components/Article_Preview.vue';
+  import type { IArticle } from '@/data/models';
+  import { onBeforeMount, ref } from 'vue';
 
-export default {
-  data() {
-    return {
-      article: []
-    }
-  },
-  components: {
-    ArticlePreview
-  },
-  async created() {
-    let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
-    let articleId = window.location.pathname.split("/").pop();
-    await axios.get(apiBaseUrl + 'articles.php/byId/' + articleId)
-        .then(response => (this.article = response.data[0])
-        )
-        .catch(function (error) {
-            console.log(error);
-        });
+  import { dbUrl } from '@/assets/common'
+  const apiBaseUrl = dbUrl();
 
-    document.getElementById("content_body").innerHTML = this.article.body;
-  },
-  methods: {
-    copyAdress() {
-      let link = window.location.href;
-      navigator.clipboard.writeText(link);
-    }
+  const article = ref<IArticle>()
+
+  onBeforeMount(async() => {
+    const articleId = window.location.pathname.split("/").pop();
+    await axios.get(apiBaseUrl + 'getArticle-' + articleId)
+      .then(response => {
+        article.value = response.data[0];
+        document.getElementById("content_body").innerHTML = article.value.body;
+      }
+    )
+    .catch(function (error) {
+      console.log(error);
+    });
+  })
+
+  function copyAdress() {
+    let link = window.location.href;
+    navigator.clipboard.writeText(link);
   }
-}
 </script>
 
 <style scoped>

@@ -1,33 +1,28 @@
 <template>
-  <h1 class="defaultH1Style">Todos los colaboradores</h1>
-  <section>
+  <main>
+    <h1 class="defaultH1Style">Todos los colaboradores</h1>
+    <section>
       <div class="ctn_subtitleSecondType">
-          <div>
-              <p> // Cronistas</p>
-          </div>
+        <div>
+          <p> // Cronistas</p>
+        </div>
       </div>
       <CarouselWriters></CarouselWriters>
-  </section>
-  <section>
+    </section>
+    <section>
       <div class="ctn_subtitleSecondType">
-          <div>
-              <p> // Artistas</p>
-          </div>
+        <div>
+          <p> // Artistas</p>
+        </div>
       </div>
       <Artists></Artists>
-  </section>
+    </section>
+  </main>
 </template>
 
-<script>
-import CarouselWriters from '@/components/Carousel_Writers.vue';
-import Artists from '@/components/Artists.vue';
-export default {
-  components: {
-      CarouselWriters,
-      Artists
-  },
-
-}
+<script setup lang="ts">
+  import CarouselWriters from '@/components/Carousel_Writers.vue';
+  import Artists from '@/components/Artists.vue';
 </script>
 
 <style scoped>

@@ -1,58 +1,58 @@
 <template>
     <div id="ctn_artistas">
         <div id="artistsNamesArt">
-            <div>
-                <button v-for="(artist, index) in this.allArtists" :key="index" @click="this.selectArtist(artist)" :id="'artist_' + artist.id" :class="{'selectedArtist' : index === 0}">{{ artist.name }} / </button>
+            <div v-if="allArtists">
+                <button v-for="(artist, index) in allArtists" :key="index" @click="selectArtist(artist)" :id="'artist_' + artist.id" :class="{'selectedArtist' : index === 0}">{{ artist.name }} / </button>
             </div>
-            <img :src="'../src/assets/images/artist/' + this.selectedArtist.id + '.jpg'" :alt="'Ilustración de ' + this.selectedArtist.name">
+            <img v-if="selectedArtist" :src="'../src/assets/images/artist/' + (selectedArtist.id || allArtists[0].id) + '.jpg'" :alt="'Ilustración de ' + selectedArtist.name">
         </div>
-        <div id="artistInfo">
+        <div id="artistInfo" v-if="selectedArtist">
             <div>
-                <p class="mediumBlueText">{{this.selectedArtist.name}}</p>
-                <p class="smallGrayText">{{this.selectedArtist.location}}</p>
-                <p>{{this.selectedArtist.bio}}</p>
+                <p class="mediumBlueText">{{selectedArtist.name}}</p>
+                <p class="smallGrayText">{{selectedArtist.location}}</p>
+                <p>{{selectedArtist.bio}}</p>
             </div>
-                <RouterLink :to="'/collaborator/' + this.selectedArtist.id" alt="Ver todos los artículos ilustrados por el artista">Artículos ilustrados</RouterLink>
+                <RouterLink :to="'/collaborator/' + selectedArtist.id" alt="Ver todos los artículos ilustrados por el artista">Artículos ilustrados</RouterLink>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            allArtists: [],
-            selectedArtist: []
-        }
-    },
-    async created() {
-        let apiBaseUrl = "https://api-newsmagazine.000webhostapp.com/api/public/";
-        await axios.get(apiBaseUrl + 'general.php/allArtists')
-            .then(response => {
-                this.allArtists = response.data;
-                this.selectedArtist = response.data[0];
-                getSocials(this.allArtists)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        
-        function getSocials(jsonData) {
-            jsonData.forEach(person => {
-                let cleanLinks = person.socialMedia.split('"');
-                cleanLinks = cleanLinks.filter(name => name.includes('www.'))
-                person.socialMedia = cleanLinks;
-            });
-        }
-    },
-    methods: {
-        selectArtist(artist) {
-            this.selectedArtist = artist;
-            document.getElementsByClassName('selectedArtist')[0].classList.remove('selectedArtist');
-            document.getElementById('artist_'+artist.id).classList.add('selectedArtist');
-        }
+<script setup lang="ts">
+    import { onBeforeMount, ref } from 'vue';
+    import { dbUrl } from '@/assets/common'
+    import axios from 'axios';
+    const apiBaseUrl = dbUrl();
+    import type { IArtist } from '@/data/models';
+
+    const allArtists = ref<IArtist[]>()
+    const selectedArtist = ref<IArtist>()
+
+    onBeforeMount(async() => {
+        await axios.get(apiBaseUrl + 'allArtists').then((response) =>     
+            {
+                allArtists.value = response.data
+                selectedArtist.value = response.data[0]
+                getSocials(response.data)
+            }
+        )
+        .catch(function (error) {
+            console.log(error);
+        });
+    })
+
+    function getSocials(jsonData) {
+        jsonData.forEach(person => {
+            let cleanLinks = person.socialMedia.split('"');
+            cleanLinks = cleanLinks.filter(name => name.includes('www.'))
+            person.socialMedia = cleanLinks;
+        });
     }
-}
+
+    function selectArtist(artist) {
+        selectedArtist.value = artist;
+        document.getElementsByClassName('selectedArtist')[0].classList.remove('selectedArtist');
+        document.getElementById('artist_'+artist.id).classList.add('selectedArtist');
+    }
 </script>
 
 <style scoped>
@@ -75,7 +75,7 @@ export default {
     } #artistsNamesArt button {
         background-color: transparent;
         font-size: 1.1em;
-        text-wrap: nowrap;
+        white-space: nowrap;
         border: none;
         cursor: pointer;
     } #artistsNamesArt img {
@@ -105,7 +105,6 @@ export default {
             padding: 0px var(--pagePadding);
         } 
     }
-
 
     @media screen and (max-width: 900px) {
         #ctn_artistas > div {

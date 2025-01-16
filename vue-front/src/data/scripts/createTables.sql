@@ -1,43 +1,44 @@
 -- Create the database schema (use backticks for identifiers)
-CREATE SCHEMA IF NOT EXISTS `freedb_newsPortal_db`;
+CREATE SCHEMA IF NOT EXISTS `newsPortal`;
 
--- Create the 'articles_active' table
-CREATE TABLE `freedb_newsPortal_db`.`articles_active` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(200) NOT NULL,
-  `type` VARCHAR(100) NOT NULL,
-  `category` VARCHAR(200) NOT NULL,
-  `tags` VARCHAR(200) NOT NULL,
-  `summary` TEXT NOT NULL,
-  `body` TEXT NOT NULL,
-  `authors` VARCHAR(200) NOT NULL,
-  `date` DATE NOT NULL,
-  `coverImg` VARCHAR(200) NOT NULL,
-  `artist` VARCHAR(200) NOT NULL,
-  `isOutstanding` BOOLEAN NOT NULL,
+DROP TABLE IF EXISTS `articles_active`;
+CREATE TABLE `articles_active` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `tags` varchar(200) NOT NULL,
+  `summary` text NOT NULL,
+  `body` text NOT NULL,
+  `authors` varchar(200) NOT NULL,
+  `date` date NOT NULL,
+  `coverImg` varchar(200) NOT NULL,
+  `artist` varchar(200) NOT NULL,
+  `route` varchar(200) NOT NULL,
+  `isOutstanding` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
--- Create the 'outstandingArticles' table with a correct foreign key reference
-CREATE TABLE `freedb_newsPortal_db`.`outstandingArticles` (
-  `id` INT NOT NULL,
-  `title` VARCHAR(200) NOT NULL,
-  `type` VARCHAR(100) NOT NULL,
-  `tags` VARCHAR(200) NOT NULL,
-  `category` VARCHAR(200) NOT NULL,
-  `summary` TEXT NOT NULL,
-  `body` TEXT NOT NULL,
-  `authors` VARCHAR(200) NOT NULL,
-  `date` DATE NOT NULL,
-  `coverImg` VARCHAR(200) NOT NULL,
-  `artist` VARCHAR(200) NOT NULL,
-  `isOutstanding` BOOLEAN NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_ArticleID` FOREIGN KEY (`id`) REFERENCES `articles_active` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Create the 'outstanding_articles' table
+DROP TABLE IF EXISTS `outstanding_articles`;
+CREATE TABLE `outstanding_articles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `tags` varchar(200) NOT NULL,
+  `summary` text NOT NULL,
+  `body` text NOT NULL,
+  `authors` varchar(200) NOT NULL,
+  `date` date NOT NULL,
+  `coverImg` varchar(200) NOT NULL,
+  `artist` varchar(200) NOT NULL,
+  `route` varchar(200) NOT NULL,
+  `isOutstanding` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- Create the 'drafts' table
-CREATE TABLE `freedb_newsPortal_db`.`drafts` (
+CREATE TABLE `newsPortal`.`drafts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(200) NULL,
   `type` VARCHAR(100) NULL,
@@ -53,43 +54,41 @@ CREATE TABLE `freedb_newsPortal_db`.`drafts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Create the 'articles_archive' table with corrected foreign key reference
-CREATE TABLE `freedb_newsPortal_db`.`articles_archive` (
-  `id` INT NOT NULL,
-  `title` VARCHAR(200) NOT NULL,
-  `type` VARCHAR(100) NOT NULL,
-  `tags` VARCHAR(200) NOT NULL,
-  `category` VARCHAR(200) NOT NULL,
-  `summary` TEXT NOT NULL,
-  `body` TEXT NOT NULL,
-  `authors` VARCHAR(200) NOT NULL,
-  `date` DATE NOT NULL,
-  `coverImg` VARCHAR(200) NOT NULL,
-  `artist` VARCHAR(200) NOT NULL,
-  `isOutstanding` BOOLEAN NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_ArticleID` FOREIGN KEY (`id`) REFERENCES `articles_active` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+DROP TABLE IF EXISTS `articles_archive`;
+CREATE TABLE `articles_archive` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `tags` varchar(200) NOT NULL,
+  `summary` text NOT NULL,
+  `body` text NOT NULL,
+  `authors` varchar(200) NOT NULL,
+  `date` date NOT NULL,
+  `coverImg` varchar(200) NOT NULL,
+  `artist` varchar(200) NOT NULL,
+  `route` varchar(200) NOT NULL,
+  `isOutstanding` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Create the 'userRoles' table
-CREATE TABLE `freedb_newsPortal_db`.`userRoles` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `roleName` VARCHAR(200) NOT NULL,
-  `permission` VARCHAR(100) NOT NULL,
+DROP TABLE IF EXISTS `userprivileges`;
+CREATE TABLE `userprivileges` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `permission` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Create the 'user' table with corrected foreign key reference
-CREATE TABLE `freedb_newsPortal_db`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(200) NOT NULL,
-  `roleId` INT NOT NULL,
-  `email` VARCHAR(200) NOT NULL,
-  `password` VARCHAR(200) NOT NULL,
-  `bio` TEXT NOT NULL,
-  `socialMedia` VARCHAR(200) NOT NULL,
-  `location` VARCHAR(200) NOT NULL,
-  `profession` VARCHAR(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_RoleID` FOREIGN KEY (`roleId`) REFERENCES `userRoles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- Create the 'user' tablenewsPortal
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `privilege` varchar(100) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `bio` text NOT NULL,
+  `socialMedia` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
