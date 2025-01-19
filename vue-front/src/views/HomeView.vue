@@ -6,14 +6,14 @@
             <div>Escritos por el equipo de colaboradores</div>
         </div>
         <div id="ctn_outstandingArticle">
-            <div v-for="(article, index) in this.outstandingarticles" :key="index" class="outstanding_article">
+            <div v-for="(article, index) in outstandingarticles" :key="index" class="outstanding_article">
                 <p class="tags">{{article.tags}}</p>
                 <p class="title">{{article.title}}</p>
                 <p class="authors">Por <span>{{article.authors}}</span></p>
                 <div class="ctn_description"><p class="description">{{ article.summary}}</p></div>
                 <div class="dateAndPlus flexBetween">
                     <p class="smallGrayText">{{article.date}}</p>
-                    <RouterLink :to="'/article/' + article.id" alt="Ir al artículo" class="plusButton"><img src="@/assets/plus-icon.svg" alt=""></RouterLink>
+                    <RouterLink :to="'/article/' + toSlug(article.title)" alt="Ir al artículo" class="plusButton"><img src="@/assets/plus-icon.svg" alt=""></RouterLink>
                 </div>
             </div>
         </div>
@@ -52,20 +52,11 @@
     import { onBeforeMount, ref } from 'vue';
     import type { IArticle } from '@/data/models';
 
-    import { dbUrl } from '@/assets/common'
+    import { dbUrl, toSlug } from '@/assets/common'
     const apiBaseUrl = dbUrl();
     const outstandingarticles = ref<IArticle[]>()
 
     onBeforeMount(async() => {
-        await axios.get(apiBaseUrl)
-            .then(response => {
-                console.log('response')
-                console.log(response)
-            }
-        )
-        .catch(function (error) {
-            console.log(error);
-        });
         await axios.get(apiBaseUrl + 'outstanding_articles')
             .then(response => {
                 outstandingarticles.value = response.data;

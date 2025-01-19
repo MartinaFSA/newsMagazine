@@ -6,7 +6,7 @@
         </div>
         <div id="navLinks_desktop">
             <ul>
-              <li v-if="this.isLoggedIn"><RouterLink to="/profile">Perfil</RouterLink></li>
+              <li v-if="isLoggedIn"><RouterLink to="/profile">Perfil</RouterLink></li>
               <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
               <li><RouterLink to="/allCollaborators">Colaboradores</RouterLink></li>
               <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>
@@ -20,7 +20,7 @@
             <span></span>
           </div>
           <ul id="navLinks_mobile">
-            <li v-if="this.isLoggedIn"><RouterLink to="/profile">Perfil</RouterLink></li>
+            <li v-if="isLoggedIn"><RouterLink to="/profile">Perfil</RouterLink></li>
             <li><RouterLink to="/allArticles">Artículos</RouterLink></li>
             <li><RouterLink to="/allCollaborators">Colaboradores</RouterLink></li>
             <li><RouterLink to="/about">Sobre nosotros</RouterLink></li>            
@@ -29,14 +29,10 @@
     </nav>
   </header>
 </template>
-<script>
-export default {
-  data() {
-    return {
-      isLoggedIn: false
-    }
-  }
-}
+<script setup lang="ts">
+  import { ref } from 'vue';
+
+  const isLoggedIn = ref(false)
 </script>
 
 <style scoped>

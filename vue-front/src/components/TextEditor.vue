@@ -3,19 +3,19 @@
     <label for="body">Cuerpo</label>
     <div class="ctn_formatBtns">
       <!-- Text Format -->
-      <button type="button" @click="this.modifyText('strong', null)" class="format"><img src="@/assets/icons/bold.svg" alt="bold"></button>
-      <button type="button" @click="this.modifyText('i', null)" class="format"><img src="@/assets/icons/italic.svg" alt="italic"></button>
-      <button type="button" @click="this.modifyText('u', null)" class="format"><img src="@/assets/icons/underline.svg" alt="underline"></button>
-      <button type="button" @click="this.modifyText('s', null)" class="format"><img src="@/assets/icons/strikethrough.svg" alt="strikethrough"></button>
+      <button type="button" @click="modifyText('strong', null)" class="format"><img src="@/assets/icons/bold.svg" alt="bold"></button>
+      <button type="button" @click="modifyText('i', null)" class="format"><img src="@/assets/icons/italic.svg" alt="italic"></button>
+      <button type="button" @click="modifyText('u', null)" class="format"><img src="@/assets/icons/underline.svg" alt="underline"></button>
+      <button type="button" @click="modifyText('s', null)" class="format"><img src="@/assets/icons/strikethrough.svg" alt="strikethrough"></button>
 
       <!-- Link -->
-      <button ref="createLink" type="button" @click="this.addLink()"><img src="@/assets/icons/link.svg" alt="Add Link"></button>
-      <button type="button" @click="this.modifyText('removeLink', 'removeLink')"><img src="@/assets/icons/unlink.png" alt="Remove Link"></button>
+      <button ref="createLink" type="button" @click="addLink()"><img src="@/assets/icons/link.svg" alt="Add Link"></button>
+      <button type="button" @click="modifyText('removeLink', 'removeLink')"><img src="@/assets/icons/unlink.png" alt="Remove Link"></button>
 
       <!-- Alignment -->
-      <button type="button" @click="this.modifyText('textAlign', 'left')" class="align"><img src="@/assets/icons/align-left.svg" alt="Align Left"></button>
-      <button type="button" @click="this.modifyText('textAlign', 'center')" class="align"><img src="@/assets/icons/align-center.svg" alt="Align Center"></button>
-      <button type="button" @click="this.modifyText('textAlign', 'right')" class="align"><img src="@/assets/icons/align-right.svg" alt="Align Right"></button>
+      <button type="button" @click="modifyText('textAlign', 'left')" class="align"><img src="@/assets/icons/align-left.svg" alt="Align Left"></button>
+      <button type="button" @click="modifyText('textAlign', 'center')" class="align"><img src="@/assets/icons/align-center.svg" alt="Align Center"></button>
+      <button type="button" @click="modifyText('textAlign', 'right')" class="align"><img src="@/assets/icons/align-right.svg" alt="Align Right"></button>
       
       <!-- Headings -->
       <select @change="modifyText('preset', $event.target.value)">
@@ -27,7 +27,7 @@
         <option v-for="(fontSizeOpt, index) in fontSizeOpts" :value="fontSizeOpt.size" :key="index">{{fontSizeOpt.opt}}</option>
       </select>
       <select @change="modifyText('fontFamily', $event.target.value)">
-        <option v-for="(fontName, index) in this.fontList" :value="fontName + '-Regular'" :key="index">{{ fontName }}</option>
+        <option v-for="(fontName, index) in fontList" :value="fontName + '-Regular'" :key="index">{{ fontName }}</option>
       </select>
       
       <button type="button" @click="eraseAll" class="align">Borrar formato</button>
@@ -53,34 +53,29 @@
   </div>
 </template>
 
-<script>
-export default {
-data() {
-    return {
-        fontList: ["WorkSans", "InstrumentSerif"],
-        fontSizeOpts: [{"opt": "Small", "size": "1em"}, {"opt": "Medium", "size": "1.3em"}, {"opt": "Large", "size": "1.7em"}],
-        presetStyles: [{"opt": "H2", "tag": "h2"}, {"opt": "H3", "tag": "h3"}, {"opt": "Frase", "tag": "blockquote"}, {"opt": "Pie", "tag": "figcaption"}],
-        body: ''
-    }
-},
-created() {
-    this.initializer();
-},
-mounted() {
-},
-methods: {
-    //Initial Settings
-    initializer() {
-    },
+<script setup lang="ts">
+    import { onBeforeMount, ref } from "vue"
 
-    pasteContent(e) {
+    const fontList = ref(["WorkSans", "InstrumentSerif"])
+    const fontSizeOpts = ref([{"opt": "Small", "size": "1em"}, {"opt": "Medium", "size": "1.3em"}, {"opt": "Large", "size": "1.7em"}])
+    const presetStyles = ref([{"opt": "H2", "tag": "h2"}, {"opt": "H3", "tag": "h3"}, {"opt": "Frase", "tag": "blockquote"}, {"opt": "Pie", "tag": "figcaption"}])
+    
+    onBeforeMount(() => {
+        initializer();
+    })
+    
+    //Initial Settings
+    function initializer() {
+    }
+
+    function pasteContent(e) {
         e.preventDefault();
         const text = e.clipboardData.getData('text/plain');
         const textNode = document.createTextNode(text);
-        this.$refs.writingArea.appendChild(textNode);
-    },
+        $refs.writingArea.appendChild(textNode);
+    }
 
-    modifyText(command, value) {
+    function modifyText(command, value) {
         //command -> tag name to add or style type
         //value -> if it's null just add the node, else append the value to the style
         let selectedTextRange = window.getSelection().getRangeAt(0);
@@ -161,11 +156,11 @@ methods: {
         }
 
         //sanitize writingArea html after every modify operation
-        this.sanitizeHTML(this.$refs.writingArea);
-    },
+        sanitizeHTML($refs.writingArea);
+    }
     
     //Remove all format
-    eraseAll() {
+    function eraseAll() {
         const selectedText = window.getSelection();
     
         let el = document.createElement('span');
@@ -173,20 +168,20 @@ methods: {
         let range = selectedText.getRangeAt(0);
         range.deleteContents();
         range.insertNode(el);
-    },
+    }
 
-    addLink() {
+    function addLink() {
         let userLink = prompt("Ingresá una URL");
         //if link has http then pass directly else add https
         if (/http/i.test(userLink)) {
-            this.modifyText('addLink', userLink);
+            modifyText('addLink', userLink);
         } else {
             userLink = "http://" + userLink;
-            this.modifyText('addLink', userLink);
+            modifyText('addLink', userLink);
         }
-    },
+    }
 
-    sanitizeHTML(elementToClean) {
+    function sanitizeHTML(elementToClean) {
         let dirtyElement = elementToClean.innerHTML;
         //clean html element
         let cleanElement = dirtyElement
@@ -203,7 +198,9 @@ methods: {
         elementToClean.innerHTML = "";
         elementToClean.innerHTML = cleanElement;
     }
-  }
+
+function ref(arg0: string[]): any {
+    throw new Error('Function not implemented.');
 }
 </script>
 

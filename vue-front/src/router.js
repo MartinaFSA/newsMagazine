@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 
-import LandingPage from './views/LandingPage.vue' 
+import HomeView from './views/HomeView.vue' 
 import AllArticles from './views/AllArticles.vue'
 import CollaboratorProfile from './views/CollaboratorProfile.vue'
 import AllCollaborators from './views/AllCollaborators.vue'
@@ -11,14 +11,14 @@ import Article from './views/Article.vue'
 import NotFound from './views/NotFound.vue'
 
 const routes = [
-    { path: '/', component: LandingPage },
+    { path: '/', component: HomeView },
     { path: '/allArticles', component: AllArticles },
     { path: '/allCollaborators', component: AllCollaborators },
     { path: '/collaborator/:id', component: CollaboratorProfile },
     { path: '/about', component: About },
     { path: '/profile', component: Profile },
     { path: '/writeArticle', component: WriteArticle },
-    { path: '/article/:id', component: Article },
+    { path: '/article/:title', component: Article },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 

@@ -1,140 +1,185 @@
 <template>
-    <section>
-      <div class="ctn_recent">
-        <div class="categories_name">
-          <div v-for="(category, index) in allCategories" :key="index"><p>{{ category.category }}</p></div>
-        </div>
-        <!-- Generate a row for each category and add 5 articles in them -->
-        <div class="ctn_categories carousel">
-          <div class="inner" ref="innerRef" :style="innerStyles" v-for="(categoryRow, index) in recentFiveCategorized.length" :key="index">
-            <RouterLink :to="'/article/' + card.id" alt="Ir al artículo" v-for="(card) in recentFiveCategorized[index]" :key="card.id" class="category card">
-              <div class="categoryMobile"><p>{{ card.category }}</p></div>
-              <p>{{ card.title }}</p>
-              <p>Por <span>{{ card.authors }}</span> // Arte <span>{{ card.artist }}</span></p>
-            </RouterLink>
-          </div>
+  <section>
+    <div class="ctn_recent">
+      <div class="categories_name">
+        <div v-for="(category, index) in allCategories" :key="index"><p>{{ category.category }}</p></div>
+      </div>
+
+      <!-- Generate a row for each category and add 5 articles in them -->
+      <div class="ctn_categories carousel">
+        <div 
+          class="inner" 
+          ref="innerRef" 
+          :style="innerStyles" 
+          v-for="(categoryRow, index) in recentFiveCategorized" 
+          :key="index">
+          <RouterLink 
+            :to="'/article/' + toSlug(card.title)" 
+            alt="Ir al artículo" 
+            v-for="(card) in categoryRow" 
+            :key="card.id" 
+            class="category card">
+            <div class="categoryMobile"><p>{{ card.category }}</p></div>
+            <p>{{ card.title }}</p>
+            <p>Por <span>{{ card.authors }}</span> // Arte <span>{{ card.artist }}</span></p>
+          </RouterLink>
         </div>
       </div>
-      <div class="carrousel_controls">
-        <button @click="prev"><img src="@/assets/arrow-icon-left.svg" alt="Next article" srcset=""></button>
-        <RouterLink to="/allArticles">Ver más</RouterLink>
-        <button @click="next"><img src="@/assets/arrow-icon-right.svg" alt="Next article" srcset=""></button>
-      </div>
-    </section>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import { dbUrl } from '@/assets/common';
-  import axios from 'axios';
-  
-  // Declare refs for the necessary variables
-  const recentFiveCategorized = ref([]);
-  const allCategories = ref([]);
-  const innerStyles = ref({});
-  const step = ref('');
-  const transitioning = ref(false);
-  
-  // Get the base URL for API requests
-  const apiBaseUrl = dbUrl();
-  
-  // Fetch data on mount
-  onMounted(async () => {
-    try {
-      const responseCategorized = await axios.get(apiBaseUrl + 'recentFiveCategorized');
-      recentFiveCategorized.value = divideCategoriesInRows(responseCategorized.data);
-  
-      const responseCategories = await axios.get(apiBaseUrl + 'allCategories');
-      allCategories.value = responseCategories.data;
-    } catch (error) {
-      console.error(error);
+    </div>
+
+    <!-- Carousel Controls -->
+    <div class="carrousel_controls">
+      <button @click="handleNavigation('prev')"><img src="@/assets/arrow-icon-left.svg" alt="Previous article"></button>
+      <RouterLink to="/allArticles">Ver más</RouterLink>
+      <button @click="handleNavigation('next')"><img src="@/assets/arrow-icon-right.svg" alt="Next article"></button>
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, nextTick } from 'vue';
+import { dbUrl, toSlug } from '@/assets/common';
+import axios from 'axios';
+
+// Declare refs for necessary variables
+const recentFiveCategorized = ref<any[]>([]);
+const allCategories = ref<any[]>([]);
+const innerStyles = ref<any>({});
+const step = ref('');
+const transitioning = ref(false);
+
+// Get the base URL for API requests
+const apiBaseUrl = dbUrl();
+
+// Fetch data on mount
+onMounted(async () => {
+  try {
+    const [categorizedRes, categoriesRes] = await Promise.all([
+      axios.get(apiBaseUrl + 'recentFiveCategorized'),
+      axios.get(apiBaseUrl + 'allCategories')
+    ]);
+    
+    recentFiveCategorized.value = divideCategoriesInRows(categorizedRes.data);
+    console.log(categorizedRes.data)
+    allCategories.value = categoriesRes.data;
+
+    // After data load, calculate the width for the carousel step
+    nextTick(setStep);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
+
+// Function to divide the categorized data into rows of 5 articles each
+function divideCategoriesInRows(data: any[]) {
+  const groupedByCategory: { [key: string]: any[] } = {};
+
+  // Group articles by their category
+  data.forEach(article => {
+    if (!groupedByCategory[article.category]) {
+      groupedByCategory[article.category] = [];
     }
+    groupedByCategory[article.category].push(article);
   });
-  
-  // Function to divide the categorized data into rows
-  function divideCategoriesInRows(data) {
-    let array = [];
-    for (let i = 0; i < data.length; i += 5) {
-      const chunk = data.slice(i, i + 5);
-      array.push(chunk);
-    }
-    return array;
-  }
-  
-  // Create a ref for accessing inner divs in Vue 3
-  const innerRef = ref(null);
-  
-  // Set the step (width of one card) based on the inner div width
-  function setStep() {
-    const innerWidth = innerRef.value[0]?.scrollWidth || 0;
-    const totalCards = recentFiveCategorized.value.length;
-    step.value = `${innerWidth / totalCards}px`;
-  }
-  
-  // Handle the next button functionality
-  function next() {
-    if (transitioning.value) return;
-    transitioning.value = true;
-    moveLeft();
-    afterTransition(() => {
-      for (let i = 0; i < recentFiveCategorized.value.length; i++) {
-        const article = recentFiveCategorized.value[i].shift();
-        recentFiveCategorized.value[i].push(article);
-        resetTranslate();
-        transitioning.value = false;
-      }
-    });
-  }
-  
-  // Handle the previous button functionality
-  function prev() {
-    if (transitioning.value) return;
-    transitioning.value = true;
-    moveRight();
-    afterTransition(() => {
-      for (let i = 0; i < recentFiveCategorized.value.length; i++) {
-        const article = recentFiveCategorized.value[i].pop();
-        recentFiveCategorized.value[i].unshift(article);
-        resetTranslate();
-        transitioning.value = false;
-      }
-    });
-  }
-  
-  // Apply a transform to move the carousel left
-  function moveLeft() {
-    innerStyles.value = {
-      transform: `translateX(${step.value}) translateX(-${step.value})`
-    };
-  }
-  
-  // Apply a transform to move the carousel right
-  function moveRight() {
-    innerStyles.value = {
-      transform: `translateX(${step.value}) translateX(-${step.value})`
-    };
-  }
-  
-  // After the transition, trigger a callback
-  function afterTransition(callback) {
-    const listener = () => {
-      callback();
-      for (let i = 0; i < recentFiveCategorized.value.length; i++) {
-        innerRef.value[i].removeEventListener('transitionend', listener);
-      }
-    };
-    for (let i = 0; i < recentFiveCategorized.value.length; i++) {
-      innerRef.value[i].addEventListener('transitionend', listener);
+
+  // Now divide each category into rows of 5 articles
+  const chunkedData = [];
+
+  for (const category in groupedByCategory) {
+    const categoryArticles = groupedByCategory[category];
+    
+    // Create chunks of 5 articles for each category
+    for (let i = 0; i < categoryArticles.length; i += 5) {
+      chunkedData.push(categoryArticles.slice(i, i + 5));
     }
   }
+
+  return chunkedData;
+}
+
+// Create a ref for accessing inner divs
+const innerRef = ref<HTMLElement | null>(null);
+
+// Set the step based on the inner div width
+function setStep() {
+  const innerWidth = innerRef.value?.scrollWidth || 0;
+  const totalCards = recentFiveCategorized.value.length;
+  console.log('Inner Width:', innerWidth, 'Total Cards:', totalCards);  // Debug the width and card count
+  step.value = `${innerWidth / totalCards}px`;
+  console.log('Step value:', step.value);  // Log the calculated step
+}
+
+// Handle the carousel navigation (next or previous)
+function handleNavigation(direction: 'next' | 'prev') {
+  console.log('Navigation clicked: ', direction);  // Log the direction
   
-  // Reset the translate styles to their initial state
-  function resetTranslate() {
-    innerStyles.value = {
-      transition: 'none'
-    };
+  if (transitioning.value) {
+    console.log('Transitioning in progress...');  // Check if transitioning is preventing action
+    return;
   }
-  </script>
+
+  transitioning.value = true;
+  
+  const action = direction === 'next' ? moveLeft : moveRight;
+  const updateOrder = direction === 'next' ? moveNextOrder : movePrevOrder;
+
+  action();
+  afterTransition(() => {
+    updateOrder();
+    transitioning.value = false;
+    console.log('Transition completed.');  // Log after the transition
+  });
+}
+
+// Move the carousel to the left
+function moveLeft() {
+  innerStyles.value = { transform: `translateX(-${step.value})` };
+}
+
+// Move the carousel to the right
+function moveRight() {
+  innerStyles.value = { transform: `translateX(${step.value})` };
+}
+
+// Update the order of the articles for the "next" navigation
+function moveNextOrder() {
+  for (const categoryRow of recentFiveCategorized.value) {
+    const article = categoryRow.shift();
+    categoryRow.push(article);
+  }
+  resetTranslate();
+}
+
+// Update the order of the articles for the "previous" navigation
+function movePrevOrder() {
+  for (const categoryRow of recentFiveCategorized.value) {
+    const article = categoryRow.pop();
+    categoryRow.unshift(article);
+  }
+  resetTranslate();
+}
+
+// Reset the translation styles after transition
+function resetTranslate() {
+  innerStyles.value = { transition: 'none' };
+}
+
+// After the transition, trigger the callback
+function afterTransition(callback: () => void) {
+  const listener = () => {
+    callback();
+    console.log('Transition has ended');  // Log when transition ends
+    for (const el of innerRef.value?.children || []) {
+      el.removeEventListener('transitionend', listener);
+    }
+  };
+
+  for (const el of innerRef.value?.children || []) {
+    el.addEventListener('transitionend', listener);
+  }
+}
+
+</script>
   
   <style scoped>
   /*CAROUSEL*/

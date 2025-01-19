@@ -3,7 +3,7 @@ export function scrollTo (elementId: string) {
     element?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
 }
 export function dbUrl() {;
-    return 'http://localhost:3000/data/';
+    return 'http://localhost:8000/data/';
 }
 export function toSlug(str: string) {
     const cleanStr = str

@@ -1,6 +1,6 @@
 <template>
   <section v-if="articles[0]" id="ctn_articlesPreview">
-    <RouterLink v-for="(n, index) in defineAmountValue()" :key="index" :to="'/article/' + articles[index].id" class="article_Preview" alt="Ir al artículo">
+    <RouterLink v-for="(n, index) in defineAmountValue()" :key="index" :to="'/article/' + toSlug(articles[index].title)" class="article_Preview" alt="Ir al artículo">
         <img :src="'../src/assets/images/article/' + articles[index].id + '/cover.jpg'" :alt="articles[index].coverImg">
         <div>
           <p class="tags">{{articles[index].tags}}</p>
@@ -15,7 +15,7 @@ import axios from 'axios';
 import type { IArticle } from '@/data/models';
 import { onBeforeMount, ref } from 'vue';
 
-import { dbUrl } from '@/assets/common'
+import { dbUrl, toSlug } from '@/assets/common'
 const apiBaseUrl = dbUrl();
 
 const articles = ref<IArticle[]>()

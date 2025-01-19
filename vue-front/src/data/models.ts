@@ -1,17 +1,16 @@
 export interface IArticle {
     id: number
+    title: string
     type: string
     tags: string
-    title: string
-    authors: string
-    artist: string
-    coverImg: string
-    date: string
     summary: string
-    category: string
     body: string
+    authors: string
+    date: string
+    coverImg: string
+    artist: string
+    category: string
 }
-
 export interface IWriter {
     id: number
     name: string

@@ -23,7 +23,7 @@ This website is yet to be released!
 Currently working on the Minimun Viable Product phase
 
 ### :computer: Set up
-REQUIREMENTS: VueJS, NodeJS, MySQL
+REQUIREMENTS: VueJS, NodeJS, MySQL, TypeScript
 
 
  Clone the repository ``git clone https://github.com/MartinaFSA/newsMagazine``
@@ -35,4 +35,4 @@ REQUIREMENTS: VueJS, NodeJS, MySQL
 
  Create a database using the queries located in the scripts folder (first createTables, then insertDummyData, lastly create the Stored Procedures)
 
- Stablish the connection between your database and API by updating the credentials.
+ Stablish the connection between your database and API by updating the credentials in node-server/app.js lines 14-18.
